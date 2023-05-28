@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import {Outlet, RouterProvider, createBrowserRouter} from 'react-router-dom'
 
-import Register from './pages/register'
+import Register from './pages/Register/Register'
 import Navbar from './pages/navbar';
-import Login from './pages/login'
+import Login from './pages/Login/Login'
 import Home from './pages/home';
 
 function App() {
