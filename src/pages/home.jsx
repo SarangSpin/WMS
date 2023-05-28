@@ -5,6 +5,7 @@ import Axios from 'axios'
 
 const Home = () => {
     const [loguser, setloguser] = useState(null)
+    const[flash, setflash] = useState(null)
     const navigate = useNavigate()
     useEffect(()=>{
         const user = async() => {
@@ -13,11 +14,13 @@ const Home = () => {
             url: 'http://localhost:5000/user',
             withCredentials: true
         }).then((res)=>{
-            if(res.data == null){
-                setloguser(null)
+            
+            if(res.data){
+                
+                setloguser(res.data)
             }
             else{
-                setloguser(res.data)
+                setloguser(null)
                 
             }
         })
@@ -26,7 +29,7 @@ const Home = () => {
     }, [])
 
     const Login = () =>{
-        if(loguser == null){
+        if(loguser === null){
             
             return( <div><Link to={'/login'}>Login</Link></div>)
         }
@@ -38,14 +41,16 @@ const Home = () => {
 
     const Logout = (e) => {
         e.preventDefault()
-        setloguser(null)
+        
         
         Axios({
             method: 'POST',
             url: 'http://localhost:5000/logout',
             withCredentials: true
         }).then((res)=>{
-            console.log(res)
+            console.log(res.data.message)
+            setloguser(null)
+            setflash(res.data.flash)
             navigate('/')})
 
 
@@ -53,11 +58,12 @@ const Home = () => {
 
     const logOut = () =>{
         
-        if(loguser == null){
+        if(loguser === null){
             
             return null
         }
         else{
+
             return (<div><a href = '/' onClick={e=>Logout(e)}>Logout</a></div>)
         }
     }
@@ -67,7 +73,7 @@ const Home = () => {
     }
 
     const Showuser = () => {
-        if(loguser == null){
+        if(loguser === null){
             
             return null
         }
@@ -78,10 +84,12 @@ const Home = () => {
     }
     return(
         <div>
+            
             <div>Welcome to Home page! {Showuser()}</div>
         <div>{Login()}</div>
         <div>{Register()}</div>
         <div>{logOut()}</div>
+        <div style={{color:'blue'}}>{flash}</div>
         </div>
         
     )

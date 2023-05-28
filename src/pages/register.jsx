@@ -8,7 +8,7 @@ const Register = () => {
     const [username, setusername] = useState(null)
     const [email, setemail] = useState(null)
     const [password, setpassword] = useState(null)
-
+    const[flash, setflash] = useState('')
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -24,8 +24,15 @@ const Register = () => {
             withCredentials: true,
             data: inputs
         }).then( res => {
+          if(res.data.status === true){
             console.log('Submitted successfully')
+            setflash(res.data.flash)
             navigate('/login')
+          }
+          else{
+            console.log(res.data.message)
+            setflash(res.data.flash)
+          }
         })
 
     }
@@ -48,6 +55,7 @@ const Register = () => {
     <input type="password" id="password" name="password" onChange={e => setpassword(e.target.value)} placeholder="Enter your password" style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px', boxSizing: 'border-box' }} required />
   </div>
   <button onClick={handleSubmit} style={{ display: 'inline-block', padding: '10px 20px', backgroundColor: '#4CAF50', color: 'white', textAlign: 'center', textDecoration: 'none', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px' }} type="submit">Register</button>
+  <div style={{color:'blue'}}>{flash}</div>
 </div>
     )
 }
