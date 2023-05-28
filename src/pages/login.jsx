@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
-
+    const[flash, setflash] = useState('')
     const navigate = useNavigate() 
     const [username, setusername] = useState(null)
     const [password, setpassword] = useState(null)
@@ -23,13 +23,16 @@ const Login = () => {
             withCredentials: true,
             data: inputs
         }).then(res => {
+            
             console.log(res.data)
             if(res.data.status === 404){
                 console.log('Wrong credentials')
+                setflash(res.data.flash)
                 navigate('/login')
             }
             else{
-                console.log(res.data)
+                console.log(res.data.result)
+                setflash(res.data.flash)
                 navigate('/')
             }
         })
@@ -52,6 +55,7 @@ const Login = () => {
     </div>
     <button onClick={handleSubmit} style={{ display: 'inline-block', padding: '10px 20px', backgroundColor: '#4CAF50', color: 'white', textAlign: 'center', textDecoration: 'none', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px' }} type="submit">Login</button>
   </form>
+  <div style={{color:'blue'}}>{flash}</div>
 </div>
     )
 }
