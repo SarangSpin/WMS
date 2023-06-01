@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div>
+    <h1 class="event-title">Event Details</h1>
+    <br/><br/>
+    <form action="application4.html">
+       <div class="input-container">
+            <label for="event"><span class="bold-text">Choose the type of event:</span></label>
+            <select name="event" id="event" required>
+                <option value="marriage">Wedding</option>
+                <option value="corporate">Corporate Event</option>
+                <option value="party">Party</option>
+                <option value="custom">Custom</option>
+            </select>
+        </div>
+        <br/>
+        <br/>
+        <div class="input-container">
+            <label for="cus-event"><span class="bold-text">If Custom enter the type of event</span></label>
+            <input type="text" name="cus-event" id="cus-event"/>
+        </div>
+        <br/><br/>
+        <div class="input-container">
+            <label for="description"><span class="bold-text">If Custom give some description of event</span></label><br/><br/>
+            <input type="text" name="description" id="description"/>
+        </div>
+        <br/><br/>
+        <div class="input-container">
+            <span class="bold-text">Enter Preferred dates of the event</span><br/>
+            <label for="s-date">From</label>
+            <input type="date" name="s-date" id="s-date" required/>
+            <label for="e-date">To</label>
+            <input type="date" name="e-date" id="e-date" required/>
+        </div>
+        <div class="input-container">
+            <label for="population"><span class="bold-text">Enter rough Turn-Up</span><br/></label>
+            <input type="number" name="population" id="population" required/>
+        </div>
+        <br/>
+        <br/>
+        <div class="input-container">
+            <label for="budget"><span class="bold-text">Choose the rough budget:</span></label>
+            <select name="budget" id="budget" required>
+                <option value="0-5">0-5 lakhs</option>
+                <option value="5-10">5-10 lakhs</option>
+                <option value="10-25">10-25 lakhs</option>
+                <option value="custom">Custom</option>
+            </select>
+            <br/>
+            <br/>
+            <span class="bold-text">If custom enter the rough custom budget (in lakhs)<br/><br/></span>
+            <input type="number" name="cus-l-budget" id="cus-l-budget" />
+            -
+            <input type="number" name="cus-h-budget" id="cus-h-budget" >
+        </div>
+        <br/>
+        <br/>
+        <div class="input-container">
+            <input type="submit" value="Submit"/>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

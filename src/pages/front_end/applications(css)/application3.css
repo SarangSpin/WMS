@@ -1,0 +1,29 @@
+.event-title {
+    font-weight: bolder;
+}
+
+.input-container {
+    text-align: center;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+/* Styles for the input fields */
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    margin: 1rem;
+    width: 16rem;
+    height: 2rem;
+    padding: 0.5rem;
+}
+
+textarea {
+    width: 16rem;
+    height: 4rem;
+    overflow: scroll;
+}

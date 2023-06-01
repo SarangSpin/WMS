@@ -17,7 +17,6 @@ const Login = () => {
           username: username,
           password: password
       }
-
       Axios({
           method: 'POST',
           url: 'http://localhost:5000/login',
@@ -31,9 +30,14 @@ const Login = () => {
               setflash(res.data.flash)
               navigate('/login')
           }
+          else if(res.data.status === 500){
+            console.log(res.data.message)
+            setflash(res.data.flash)
+          }
           else{
               console.log(res.data.result)
               setflash(res.data.flash)
+              alert('Login Successful')
               navigate('/')
           }
       })
@@ -49,11 +53,11 @@ const Login = () => {
           Have an Account?
         </h2>
         <form className='form'>
-          <input type="text" placeholder='UserName' id='username' name='username' onChange={e => setusername(e.target.value)}/>
-          <input type="password" placeholder='password' id="password" name="password" onChange={e => setpassword(e.target.value)} />
-          <button type="submit" className='button' onClick={handleSubmit}>Sign In</button>
-          <p>This is an error</p>
-            <span>Dont't have an account? <Link to="/register">Register</Link>
+          <input type="text" placeholder='UserName' id='username' required name='username' onChange={e => setusername(e.target.value)}/>
+          <input type="password" placeholder='password' id="password" required name="password" onChange={e => setpassword(e.target.value)} />
+          <button type="submit" className='button' onClick={e=>handleSubmit(e)}>Sign In</button>
+          <p>{flash}</p>
+            <span>Dont't have an account? <Link to={"/register"}>Register</Link>
             </span>
         </form>
       </div>
