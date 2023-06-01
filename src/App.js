@@ -6,6 +6,8 @@ import Register from './pages/Register/Register'
 import Navbar from './pages/navbar';
 import Login from './pages/Login/Login'
 import Home from './pages/home';
+import Appln1 from './pages/Application/app_page1';
+import Appln2 from './pages/Application/app_page2';
 
 function App() {
   
@@ -35,7 +37,16 @@ function App() {
   {
     path: '/register',
     element: <Register />
-  }]
+  },
+{
+  path:'/appl1',
+  element: <Appln1 />
+},
+{
+  path:'/appl2',
+  element: <Appln2 />
+}
+]
   )
 
 

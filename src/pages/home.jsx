@@ -82,6 +82,11 @@ const Home = () => {
             
         }
     }
+
+    const Appl = () =>{
+        return (<div><Link to={'/appl1'}>Apply for an event</Link></div>)
+    }
+    
     return(
         <div>
             
@@ -89,6 +94,7 @@ const Home = () => {
         <div>{Login()}</div>
         <div>{Register()}</div>
         <div>{logOut()}</div>
+        <div>{Appl()}</div>
         <div style={{color:'blue'}}>{flash}</div>
         </div>
         
