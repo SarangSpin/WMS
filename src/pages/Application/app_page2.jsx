@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import '../front_end/applications(css)/application3.css'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import  Axios from "axios";
+import {useErrorBoundary } from "react-error-boundary";
 
 const Appln2 =() =>{
+  const {showBoundary} = useErrorBoundary()
 const [loguser, setloguser] = useState(null)
 
   const navigate = useNavigate()
@@ -15,7 +17,9 @@ const [loguser, setloguser] = useState(null)
         url: 'http://localhost:5000/user',
         withCredentials: true
     }).then((res)=>{
-        
+      if(res.data.err){
+        showBoundary(res.data.err)
+      }
         if(res.data){
             
             setloguser(res.data)
@@ -27,11 +31,12 @@ const [loguser, setloguser] = useState(null)
             
         }
     })
+    .catch(err=>showBoundary(err))
     }
     user()
 
     
-}, [loguser, navigate])
+}, [])
 
     const [event, setEvent] = useState(null);
     const [cusEvent, setCusEvent] = useState(null);
