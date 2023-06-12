@@ -2,36 +2,37 @@ import React, { useEffect, useState } from "react";
 import '../front_end/applications(css)/application1.css'
 import { Link, useNavigate } from "react-router-dom";
 import  Axios from "axios";
+import {useErrorBoundary } from "react-error-boundary";
 
 const Appln1 = () => {
 
+  const {showBoundary} = useErrorBoundary()
   const [loguser, setloguser] = useState(null)
 
   const navigate = useNavigate()
 
   useEffect(()=>{
-    const user = async() => {
-    await Axios({
+    Axios({
         method: 'GET',
         url: 'http://localhost:5000/user',
         withCredentials: true
     }).then((res)=>{
-        
+      if(res.data.err){
+        showBoundary(res.data.err)
+      }
         if(res.data){
             setloguser(res.data)
         }
         else{
-            setloguser(null)
+          navigate('/login')    
             alert('You need to login first')
-        navigate('/login')
-            
         }
-    })
-    }
-    user()
+    }, [])
+    .catch((err)=> showBoundary(err))
+   
 
     
-}, [loguser, navigate])
+})
 
 
 

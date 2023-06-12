@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import './Register.css'
+import {useErrorBoundary } from "react-error-boundary";
 const Register = () => {
 
+  const {showBoundary} = useErrorBoundary()
   const navigate = useNavigate() 
     const [username, setusername] = useState(null)
     const [email, setemail] = useState(null)
     const [password, setpassword] = useState(null)
     const[flash, setflash] = useState('')
-    const [otp, setotp] = useState(null)
-    const [otpS, setotpS] = useState(null)
     let inputs = null
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -23,59 +23,32 @@ const Register = () => {
 
         Axios({
           method: 'POST',
-          url: 'http://localhost:5000/otpmail',
+          url: 'http://localhost:5000/register',
           withCredentials: true,
-          data: {email: inputs.email}
-      }).then(res=>{
-        if(res.data.status){
-          setotpS(res.data.OTP)
+          data: inputs
+      }).then( res => {
+        console.log(res.data)
+        if(res.data.status === 500){
+          console.log(res.data)
+          showBoundary(res.data)
           
         }
-      })
+        else{
+        if(res.data.status === true){
+          console.log('Submitted successfully')
+          setflash(res.data.flash)
+          alert('Successfully registered')
+          navigate('/login')
+        }
+        else{
+          console.log(res.data.message)
+          setflash(res.data.flash)
+        }}
+      }).catch((err)=>showBoundary(err))
+    
     }
-
    
 
-
-    const finalSubmit = (e) => {
-      e.preventDefault()
-      if(otp === null){
-        setflash('Please enter OTP to verify')
-
-      }
-      if(otp === otpS){
-        setflash(null)
-        Axios({
-            method: 'POST',
-            url: 'http://localhost:5000/register',
-            withCredentials: true,
-            data: inputs
-        }).then( res => {
-          if(res.data.status === true){
-            console.log('Submitted successfully')
-            setflash(res.data.flash)
-            alert('Successfully registered')
-            navigate('/login')
-          }
-          else{
-            console.log(res.data.message)
-            setflash(res.data.flash)
-          }
-        })
-      }
-
-    }
-
-    const OTP = () => {
-      if(inputs !== null){
-      return (
-        <div>
-        <input type="text" placeholder='Enter the OTP sent to your mail'  name="otp" required onChange={e => setotp(e.target.value)}/>
-        <button type="submit" className='button' onClick={e=>finalSubmit(e)}>Submit</button>
-        </div>
-      )
-      }
-    }
 
   return (
     <section className="l-wrapper">
@@ -90,7 +63,7 @@ const Register = () => {
           <input type="password" placeholder='Password' id="password" name="password" required onChange={e => setpassword(e.target.value)} />
           
           <button type="submit" className='button' onClick={e=>handleSubmit(e)}>Register</button>
-          <div>{OTP()}</div>
+          
           <p>{flash}</p>
           
             <span>Have an account? <Link to={"/login"}>Login</Link>
@@ -101,4 +74,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Register;

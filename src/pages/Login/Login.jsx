@@ -4,8 +4,11 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import './Login.css'
-const Login = () => {
+import { useErrorBoundary } from 'react-error-boundary'
 
+const Login = () => {
+  
+  const { showBoundary } = useErrorBoundary()
   const[flash, setflash] = useState('')
   const navigate = useNavigate() 
   const [username, setusername] = useState(null)
@@ -23,7 +26,9 @@ const Login = () => {
           withCredentials: true,
           data: inputs
       }).then(res => {
-          
+        if(res.data.err){
+          showBoundary(res.data.err)
+        }else{
           console.log(res.data)
           if(res.data.status === 404){
               console.log('Wrong credentials')
@@ -35,12 +40,13 @@ const Login = () => {
             setflash(res.data.flash)
           }
           else{
-              console.log(res.data.result)
+              console.log(res.data.result.user_id)
               setflash(res.data.flash)
               alert('Login Successful')
-              navigate('/')
-          }
+              window.history.back()
+          }}
       })
+      .catch((err)=>showBoundary(err))
 
   }
   return (

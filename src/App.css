@@ -9,3 +9,8 @@
   text-decoration: none;
   color: inherit;
 }
+
+iframe
+{
+    display: none;
+}

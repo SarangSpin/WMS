@@ -34,7 +34,7 @@ const Login = () => {
             else{
                 console.log(res.data.result)
                 setflash(res.data.flash)
-                navigate('/')
+                window.history.back()
             }
         })
 

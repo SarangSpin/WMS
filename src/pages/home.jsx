@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from 'axios'
-
+import {useErrorBoundary } from "react-error-boundary";
 
 const Home = () => {
+const {showBoundary} = useErrorBoundary()
+
     const [loguser, setloguser] = useState(null)
     const[flash, setflash] = useState(null)
     const navigate = useNavigate()
     useEffect(()=>{
         const user = async() => {
-        await Axios({
+        Axios({
             method: 'GET',
             url: 'http://localhost:5000/user',
             withCredentials: true
         }).then((res)=>{
-            
+            if(res.data.err){
+                showBoundary(res.data.err)
+              }else{
             if(res.data){
                 
                 setloguser(res.data)
@@ -22,8 +26,9 @@ const Home = () => {
             else{
                 setloguser(null)
                 
-            }
+            }}
         })
+        .catch((err)=> showBoundary(err))
         }
         user()
     }, [])
@@ -52,6 +57,8 @@ const Home = () => {
             setloguser(null)
             setflash(res.data.flash)
             navigate('/')})
+        .catch((err)=> showBoundary(err))
+
 
 
     }

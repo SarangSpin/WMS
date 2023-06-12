@@ -10,7 +10,7 @@ const mysql = require('mysql')
 const flash = require('connect-flash')
 const { v4: uuidv4 } = require('uuid');
 const { stringify } = require("querystring");
-const {sendEmail, generateOTP} = require('./otpemail')
+const ReactError = require('./ReactError')
 
 const con = mysql.createConnection({
     host: "localhost",
@@ -96,6 +96,7 @@ app.post('/login', (req,res,next)=>{
     else{
         console.log(req.body)
     passport.authenticate('local', (err, user)=>{
+      if (err) {next(err)}
         console.log(user)
         if (user == false){
             req.flash('error', 'User not found')
@@ -107,7 +108,7 @@ app.post('/login', (req,res,next)=>{
     }
         else{
             req.logIn(user, (err)=>{
-                if (err) throw err
+                if (err) next(err)
             req.flash('success', 'Login Successful')
             res.send({
                 result: req.user,
@@ -127,7 +128,7 @@ app.get('/user',(req, res)=>{
 
 })
 
-app.post('/register', (req, res)=>{
+app.post('/register', (req, res, next)=>{
     if((req.body.username == null || req.body.password == null) || req.body.email == null ){
         req.flash('error', 'Fields missing')
              res.send({
@@ -137,6 +138,7 @@ app.post('/register', (req, res)=>{
         })
     }
     con.query(`SELECT * FROM ewm_clients.registered WHERE username = '${req.body.username}'`, async(err, data)=>{
+      if (err) { next(err); return; }
         if(data.length >=1){
             req.flash('error', 'User already exists')
             res.send({
@@ -146,27 +148,22 @@ app.post('/register', (req, res)=>{
             })
         } 
         if(data.length == 0){
-            const hashedPassword = bcrypt.hashSync(req.body.password, 10, (err)=>{if (err) throw err})
+            const hashedPassword = bcrypt.hashSync(req.body.password, 10, (err)=>{if (err) next(err)})
             const newUser ={
                 user_id: uuidv4(),
                 username: req.body.username,
                 email: req.body.email,
                 password: hashedPassword
             }
-            con.query(`INSERT INTO ewm_clients.registered (user_id, username, email_id, password) VALUES ('${newUser.user_id}','${newUser.username}','${newUser.email}','${newUser.password}')`, (err)=>{if (err) throw err})
-            req.flash('success', 'User created successfully')
-            res.send({
-                result: newUser,
-                status: true,
-            flash: req.flash('success')})
-        }
-    })
+            con.query(`INSERT INTO ewm_clients.registered (user_id, username, email_id, password) VALUES ('${newUser.user_id}','${newUser.username}','${newUser.email}','${newUser.password}')`, (err)=>{if (err) { next(err); return; } })
+            
+    }})
 
 })
 
-app.post('/logout', (req,res)=>{
+app.post('/logout', (req,res, next)=>{
   if(req.isAuthenticated()){
-    req.logOut((err)=>{if (err) throw err})
+    req.logOut((err)=>{if (err) { next(err); return; }})
     req.flash('success', 'You have successfully logged out')
     res.send({
         message: 'Logged out',
@@ -177,15 +174,9 @@ app.post('/logout', (req,res)=>{
   }
 })
 
-app.post('/otpmail', async(req, res)=>{
-    const otp = generateOTP();
-    const status = sendEmail(req.body.email, otp)
-    if(status){res.send({status: true, OTP: otp})}
-    else{res.send({status: false, OTP: null})}
-    
-})
 
-app.post('/appl1', (req, res) => {
+
+app.post('/appl1', (req, res, next) => {
     const data2 = [
       req.body.firstName,
       req.body.lastName,
@@ -202,7 +193,7 @@ app.post('/appl1', (req, res) => {
       VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', '${data2[3]}', '${data2[4]}', '${data2[5]}', '${data2[6]}', '${data2[7]}', '${data2[8]}')`;
   
     con.query(query, (err) => {
-      if (err) throw err;
+      if (err) { next(err); return; }
     });
   
     req.flash('success', 'Application part 1 successfully registered');
@@ -214,7 +205,7 @@ app.post('/appl1', (req, res) => {
     });
   });
 
-app.post('/appl2', (req, res) => {
+app.post('/appl2', (req, res, next) => {
   const data2 = [
     req.body.event_,
     req.body.cusEvent,
@@ -232,7 +223,7 @@ app.post('/appl2', (req, res) => {
     VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', ${data2[3]}, ${data2[4]}, ${data2[5]}, '${data2[6]}', ${data2[7]}, ${data2[8]})`;
 
   con.query(query, (err) => {
-    if (err) throw err;
+    if (err) next(err);
   });
 
   req.flash('success', 'Application part 2 successfully registered');
@@ -242,4 +233,11 @@ app.post('/appl2', (req, res) => {
     flash: req.flash('success')
   });
 });
+
+
+app.use((err, req, res, next)=>{
+  console.log(err)
+  const error = ReactError(err, 'Internal server error')
+  res.send(error)
+})
 
