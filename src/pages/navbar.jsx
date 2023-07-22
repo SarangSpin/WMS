@@ -38,10 +38,10 @@ let username = () => {
 
 let LoggedIn = () =>{
     if(loguser === null){
-        return(<a href="/login">Sign In</a>)
+        return(<a className="option" href="/login">Sign In</a>)
     }
     else{
-        return (<a href = '/' onClick={e=>Logout(e)}>Logout</a>)
+        return (<a className="option" href = '/' onClick={e=>Logout(e)}>Logout</a>)
     }
 }
 
@@ -51,7 +51,7 @@ let AdminStatus = () =>{
     }
     else{
         if(loguser.admin_status === "true")
-        return (<a href="/admin">Admin</a> )
+        return (<a className="option" href="/admin">Admin</a> )
     }
 }
 
@@ -61,7 +61,7 @@ let AdminStatus = () =>{
         return(
             <nav>
     <div className="navbar">
-      <div className="navbar-logo">WMS</div>
+      <div className="navbar-logo"><a className="logo" href="/">WMS</a></div>
       <div className="navbar-menu">
         <ul>
           <li><a href="#">Home</a></li>
@@ -75,7 +75,7 @@ let AdminStatus = () =>{
         {LoggedIn()}
         {AdminStatus()}
         {/* { loguser.result.is_employee === true ? <a href="/details">Your Details</a>: null } */}
-          <a href="#">Settings</a>
+          <a className="option" href="#">Settings</a>
         </div>
       </li> 
       </ul>

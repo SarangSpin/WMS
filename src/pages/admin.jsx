@@ -69,6 +69,7 @@ const AdminPage = () => {
     return(
       <>
       <Navbar loguser = {logUser} />
+      <div className="head">Administrator Options</div>
         <div className='links'>
           <div><a className='link' href="/admin/employee_register">Create an employee account</a></div>
           

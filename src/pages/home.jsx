@@ -3,6 +3,7 @@ import Navbar from "./navbar";
 import {useErrorBoundary } from "react-error-boundary";
 import { Link, useNavigate } from "react-router-dom";
 import  Axios from "axios";
+import './htmlfiles/home.css'
 
 const Home = () => {
     const {showBoundary} = useErrorBoundary()
@@ -30,15 +31,15 @@ const Home = () => {
     }, [])
 
     const Appl = () =>{
-        return (<div><Link to={'/appl1'}>Apply for an event</Link></div>)
+        return (<div><Link className="link" to={'/appl1'}>Apply for an event</Link></div>)
     }
     
     return(
         <>
         <Navbar loguser = {logUser} />
-        <div>
-            <div>Welcome to Home page!</div>
-        <div>{Appl()}</div>
+        <div className="content">
+            <div className="title">Welcome to Home page!</div>
+        <div className="apply">{Appl()}</div>
         
         </div>
         </>

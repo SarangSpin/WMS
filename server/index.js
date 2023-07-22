@@ -137,6 +137,7 @@ app.post('/register', (req, res, next)=>{
             flash: req.flash('error')
         })
     }
+    else{
     con.query(`SELECT * FROM ewm_clients.registered WHERE username = '${req.body.username}'`, async(err, data)=>{
       if (err) { next(err); return; }
         if(data.length >=1){
@@ -156,10 +157,58 @@ app.post('/register', (req, res, next)=>{
                 password: hashedPassword
             }
             con.query(`INSERT INTO ewm_clients.registered (user_id, username, email_id, password) VALUES ('${newUser.user_id}','${newUser.username}','${newUser.email}','${newUser.password}')`, (err)=>{if (err) { next(err); return; } })
-            
+            res.send({
+              message: 'Success',
+              status: true
+            })
     }})
+  }
 
 })
+
+app.post('/employee_reg', (req, res, next)=>{
+  if((req.body.firstName == '' || req.body.lastName == '') || req.body.email == '' ||req.body.phone == null || ''||undefined ||req.body.address == ''||req.body.designation == ''||req.body.password == '' ){
+      req.flash('error', 'Fields missing')
+           res.send({
+          status: false,
+          message: 'Fields missing',
+          flash: req.flash('error')
+      })
+  }
+  else{
+  con.query(`SELECT * FROM ewm_operational.employees WHERE first_name = '${req.body.firstName}'`, async(err, data)=>{
+    if (err) { next(err); return; }
+      if(data.length >=1){
+          req.flash('error', 'User already exists')
+          res.send({
+              message: 'User already exists',
+              status: false,
+              flash: req.flash('error')
+          })
+      } 
+      if(data.length == 0){
+        
+          const hashedPassword = bcrypt.hashSync(req.body.password, 10, (err)=>{if (err) next(err)})
+          const newUser ={
+              employee_id: uuidv4(),
+              firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+        designation: req.body.designation,
+        password: hashedPassword
+          }
+          con.query(`INSERT INTO ewm_operational.employees (employee_id, first_name, last_name, email, phone, address, designation, password) VALUES ('${newUser.employee_id}','${newUser.firstName}','${newUser.lastName}','${newUser.email}', ${newUser.phone}, '${newUser.address}', '${newUser.designation}', '${newUser.password}')`, (err)=>{if (err) { next(err); return; } })
+          res.send({
+            message: 'Success',
+            status: true
+          })
+  }})
+}
+
+})
+
 
 app.post('/logout', (req,res, next)=>{
   if(req.isAuthenticated()){
