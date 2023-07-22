@@ -2,7 +2,7 @@ import {Link} from "react-router-dom"
 import React, { useState } from "react";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
-import './Register.css'
+import './htmlfiles/Register.css'
 import {useErrorBoundary } from "react-error-boundary";
 const Register = () => {
 
@@ -67,6 +67,8 @@ const Register = () => {
           <p>{flash}</p>
           
             <span>Have an account? <Link to={"/login"}>Login</Link>
+            </span>
+            <span><Link to={"/"}>Back to Home</Link>
             </span>
         </form>
       </div>

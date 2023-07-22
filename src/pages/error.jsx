@@ -3,6 +3,7 @@ import React from "react";
 
 const ErrorPage = (props) => {
     const {error, resetErrorBoundary } = props
+    console.log(error)
     return(
         <div>
         <p>Error: {(error.status) ? error.status : 503}:</p>

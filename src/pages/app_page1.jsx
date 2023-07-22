@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import '../front_end/applications(css)/application1.css'
+import './htmlfiles/applications(css)/application1.css'
 import { Link, useNavigate } from "react-router-dom";
 import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
+import Navbar from "./navbar";
 
 const Appln1 = () => {
 
   const {showBoundary} = useErrorBoundary()
-  const [loguser, setloguser] = useState(null)
+  const [logUser, setloguser] = useState(null)
+ 
 
   const navigate = useNavigate()
 
@@ -22,6 +24,7 @@ const Appln1 = () => {
       }
         if(res.data){
             setloguser(res.data)
+            console.log(res.data)
         }
         else{
           navigate('/login')    
@@ -32,7 +35,7 @@ const Appln1 = () => {
    
 
     
-})
+}, [])
 
 
 
@@ -97,9 +100,9 @@ const Appln1 = () => {
   };
 
     return(
-
-
-    <div>
+      <> 
+      <Navbar loguser = {logUser} />
+      <div>
       <div style={{color: 'red'}}>{flash}</div>
       <h1>Enter the details</h1>
       <br />
@@ -194,6 +197,9 @@ const Appln1 = () => {
       </form>
     </div>
 
+      </>
+
+    
 
 
     )

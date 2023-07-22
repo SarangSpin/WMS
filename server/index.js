@@ -56,7 +56,7 @@ passport.use(
         q = `SELECT * FROM ewm_clients.registered WHERE username = '${username}'`
             con.query(q, (err,user)=>{
                 console.log(user)
-                if (!user) return done(null, false)
+                if (!user || user == null || user === undefined || user[0] === undefined) return done(null, false)
                 else{
                     bcrypt.compare(password, user[0].password, (err, result)=>{
                         console.log(result)
