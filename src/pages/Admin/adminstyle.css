@@ -1,0 +1,23 @@
+.links{
+  
+  display: block;
+  padding: 20px;
+  justify-content: center;
+}
+.link{
+  margin: 20px;
+  background-color:beige;
+  padding: 10px;
+  display: block;
+  border-radius: 10px;
+}
+
+.head{
+  margin: 30px;
+  background-color: antiquewhite;
+  font-size: 20px;
+  display: block;
+  padding: 10px;
+  border-radius: 10px;
+
+}

@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import '../front_end/applications(css)/application3.css'
+import './htmlfiles/applications(css)/application3.css'
 import { useNavigate, useSearchParams } from "react-router-dom";
 import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
+import Navbar from "./navbar";
 
 const Appln2 =() =>{
+
   const {showBoundary} = useErrorBoundary()
-const [loguser, setloguser] = useState(null)
+  const [logUser, setloguser] = useState(null)
+ 
 
   const navigate = useNavigate()
 
   useEffect(()=>{
-    const user = async() => {
-    await Axios({
+    Axios({
         method: 'GET',
         url: 'http://localhost:5000/user',
         withCredentials: true
@@ -21,19 +23,16 @@ const [loguser, setloguser] = useState(null)
         showBoundary(res.data.err)
       }
         if(res.data){
-            
             setloguser(res.data)
+            console.log(res.data)
         }
         else{
-            setloguser(null)
+          navigate('/login')    
             alert('You need to login first')
-        navigate('/login')
-            
         }
-    })
-    .catch(err=>showBoundary(err))
-    }
-    user()
+    }, [])
+    .catch((err)=> showBoundary(err))
+   
 
     
 }, [])
@@ -101,6 +100,8 @@ const [loguser, setloguser] = useState(null)
     };
   
     return (
+      <>
+      <Navbar loguser = {logUser} />
       <div>
         <div style={{color: 'red'}}>{flash}</div>
         <h1 className="event-title">Event Details</h1>
@@ -183,6 +184,7 @@ const [loguser, setloguser] = useState(null)
           </div>
         </form>
       </div>
+      </>
     );
   }
 

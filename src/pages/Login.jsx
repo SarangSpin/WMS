@@ -3,8 +3,9 @@ import {Link} from "react-router-dom"
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import './Login.css'
+import './htmlfiles/Login.css'
 import { useErrorBoundary } from 'react-error-boundary'
+
 
 const Login = () => {
   
@@ -43,13 +44,17 @@ const Login = () => {
               console.log(res.data.result.user_id)
               setflash(res.data.flash)
               alert('Login Successful')
-              window.history.back()
+              console.log(res.data.result.admin_status)
+              navigate('/');
+            
+              
           }}
       })
       .catch((err)=>showBoundary(err))
 
   }
   return (
+    <div className="container">
     <section className="l-wrapper">
       <div className="center">
         <h1 >
@@ -59,15 +64,18 @@ const Login = () => {
           Have an Account?
         </h2>
         <form className='form'>
-          <input type="text" placeholder='UserName' id='username' required name='username' onChange={e => setusername(e.target.value)}/>
-          <input type="password" placeholder='password' id="password" required name="password" onChange={e => setpassword(e.target.value)} />
+          <input type="text" placeholder='Username' id='username' required name='username' onChange={e => setusername(e.target.value)}/>
+          <input type="password" placeholder='Password' id="password" required name="password" onChange={e => setpassword(e.target.value)} />
           <button type="submit" className='button' onClick={e=>handleSubmit(e)}>Sign In</button>
           <p>{flash}</p>
             <span>Dont't have an account? <Link to={"/register"}>Register</Link>
             </span>
+            <span><Link to={"/"}>Back to Home</Link>
+            </span>
         </form>
       </div>
     </section>
+    </div>
   )
 }
 

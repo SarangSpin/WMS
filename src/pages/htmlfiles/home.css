@@ -1,0 +1,19 @@
+.content{
+    
+    margin: 20px;
+    font-size: larger;
+    
+    width: 60%
+}
+
+.apply{
+    text-decoration: none;
+    color: black;
+    
+    display: inline-block;
+}
+
+.title{
+    align-self: center;
+    display: inline-block;
+}
