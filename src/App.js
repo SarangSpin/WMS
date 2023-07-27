@@ -4,7 +4,6 @@ import {Link, Outlet, RouterProvider, createBrowserRouter} from 'react-router-do
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorPage from './pages/error';
 import Register from './pages/Register'
-
 import Login from './pages/Login'
 import Home from './pages/home';
 import Appln1 from './pages/app_page1';
@@ -12,6 +11,9 @@ import Appln2 from './pages/app_page2';
 import AdminPage from './pages/admin';
 import EmployeeReg from './pages/employeereg';
 import DbInfo from './pages/dbinfo';
+import Planner from './pages/planner';
+import OsManager from './pages/osm';
+
 function App() {
   
   
@@ -62,7 +64,15 @@ function App() {
     path: '/register',
     element: <ErrorBoundary FallbackComponent={ErrorPage}><Register /></ErrorBoundary>
   },
-  
+  {
+    path: '/operations',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><OsManager /></ErrorBoundary>
+  },
+  {
+    path: '/planner',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><Planner /></ErrorBoundary>
+  },
+
   {
     path: '*',
     element: 

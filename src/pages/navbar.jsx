@@ -32,7 +32,12 @@ let username = () => {
     }
     else{
         
-        return loguser.username
+        if(loguser.client == 'yes'){
+            return loguser.username
+        }
+        else{
+            return loguser.first_name
+        }
     }
 }
 
@@ -50,11 +55,47 @@ let AdminStatus = () =>{
         return null
     }
     else{
+       if(loguser.client == "no"){
         if(loguser.admin_status === "true")
         return (<a className="option" href="/admin">Admin</a> )
+       }
+       else{
+        return null
+       }
+        
     }
 }
 
+let Planner = () => {
+    if(loguser === null){
+        return null
+    }
+    else{
+        if(loguser.client == "no"){
+            if(loguser.designation === "Planner")
+            return (<a className="option" href="/planner">Applications</a> )
+           }
+           else{
+            return null
+           }
+    }
+
+}
+let OsManager = () => {
+    if(loguser === null){
+        return null
+    }
+    else{
+        if(loguser.client == "no"){
+            if(loguser.designation === "osm")
+            return (<a className="option" href="/operations">Your Assignments</a> )
+           }
+           else{
+            return null
+           }
+    }
+
+}
 
 
         
@@ -74,6 +115,8 @@ let AdminStatus = () =>{
         <div className="dropdown-content">
         {LoggedIn()}
         {AdminStatus()}
+        {Planner()}
+        {OsManager()}
         {/* { loguser.result.is_employee === true ? <a href="/details">Your Details</a>: null } */}
           <a className="option" href="#">Settings</a>
         </div>

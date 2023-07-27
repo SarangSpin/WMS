@@ -18,6 +18,7 @@ const EmployeeReg = () =>{
   const [designation, setDesignation] = useState('');
   const [password, setpassword] = useState('')
   const [confpassword, setconfpassword] = useState('')
+  const [admin, setadmin] = useState(false)
 
   
   const[flash, setflash] = useState('')
@@ -37,10 +38,13 @@ const EmployeeReg = () =>{
       }
         if(res.data){
           setloguser(res.data)
-          if(res.data.admin_status !== "true"){
-            
+          if(res.data.client == "no"){
+            if(res.data.admin_status !== "true"){
+              navigate('/')
+            }
+          }
+          else{
             navigate('/')
-            
           }
         }
         else{
@@ -68,6 +72,8 @@ const handleSubmit = (e) => {
         address: address,
         designation: designation,
         password: password,
+        admin_status: admin,
+        client: "no"
         
 
     }
@@ -162,6 +168,10 @@ const handleSubmit = (e) => {
             <div class="form-group">
                 <label for="conf_password">Confirm Password:</label>
                 <input type="password" id="conf_password" name="confpassword" value={confpassword} onChange={e=>setconfpassword(e.target.value)} required/>
+            </div>
+            <div class="form-group">
+                <label for="admin">Admin Status (true or false):</label>
+                <input type="text" id="admin" name="admin_status" value={admin} onChange={e=>setadmin(e.target.value)} required/>
             </div>
             <input type="submit" onClick={e=>handleSubmit(e)} value="Submit"/>
             <div><h2>{flash}</h2></div>
