@@ -44,7 +44,6 @@ const Login = () => {
               console.log(res.data.result.user_id)
               setflash(res.data.flash)
               alert('Login Successful')
-              console.log(res.data.result.admin_status)
               navigate('/');
             
               

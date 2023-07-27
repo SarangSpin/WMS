@@ -13,9 +13,10 @@ const { stringify } = require("querystring");
 const ReactError = require('./ReactError')
 
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "SLMy23$spin"
+    host: "wms-database.cwhe5uu2sq6p.ap-south-1.rds.amazonaws.com",
+    port: 3306,
+    user: "admin",
+    password: "mzV4DZB57j3VPtTvCVS9"
   });
   
 con.connect(function(err) {
@@ -56,7 +57,29 @@ passport.use(
         q = `SELECT * FROM ewm_clients.registered WHERE username = '${username}'`
             con.query(q, (err,user)=>{
                 console.log(user)
-                if (!user || user == null || user === undefined || user[0] === undefined) return done(null, false)
+                if (!user || user == null || user === undefined || user[0] === undefined){
+
+
+                    p = `SELECT * FROM ewm_operational.employees WHERE first_name = '${username}'`
+                    con.query(p, (err, user2)=>{
+                      console.log(user2)
+                      if (!user2 || user2 == null || user2 === undefined || user2[0] === undefined){
+
+                        return done(null, false)
+                      }
+
+                      else{
+                        bcrypt.compare(password, user2[0].password, (err, result)=>{
+                          console.log(result)
+                          if(result) return done(null, user2[0])
+                          else{
+                              return done(null, false)
+                          }
+                      })
+                      }
+
+                    })
+                }
                 else{
                     bcrypt.compare(password, user[0].password, (err, result)=>{
                         console.log(result)
@@ -197,9 +220,10 @@ app.post('/employee_reg', (req, res, next)=>{
         phone: req.body.phone,
         address: req.body.address,
         designation: req.body.designation,
-        password: hashedPassword
+        password: hashedPassword,
+        admin_status: req.body.admin_status
           }
-          con.query(`INSERT INTO ewm_operational.employees (employee_id, first_name, last_name, email, phone, address, designation, password) VALUES ('${newUser.employee_id}','${newUser.firstName}','${newUser.lastName}','${newUser.email}', ${newUser.phone}, '${newUser.address}', '${newUser.designation}', '${newUser.password}')`, (err)=>{if (err) { next(err); return; } })
+          con.query(`INSERT INTO ewm_operational.employees (employee_id, first_name, last_name, email, phone, address, designation, password, admin_status, client) VALUES ('${newUser.employee_id}','${newUser.firstName}','${newUser.lastName}','${newUser.email}', ${newUser.phone}, '${newUser.address}', '${newUser.designation}', '${newUser.password}', '${newUser.admin_status}', 'no')`, (err)=>{if (err) { next(err); return; } })
           res.send({
             message: 'Success',
             status: true

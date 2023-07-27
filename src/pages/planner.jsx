@@ -1,5 +1,5 @@
 
-import './Admin/adminstyle.css';
+import './Admin/planner.css';
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios'
@@ -7,7 +7,7 @@ import {useErrorBoundary } from "react-error-boundary";
 import Navbar from './navbar';
 
 
-const AdminPage = () => {
+const Planner = () => {
 
   const {showBoundary} = useErrorBoundary()
   const [logUser, setloguser] = useState(null)
@@ -27,7 +27,7 @@ const AdminPage = () => {
         if(res.data){
           setloguser(res.data)
           if(res.data.client == "no"){
-            if(res.data.admin_status !== "true"){
+            if(res.data.designation !== "Planner"){
               navigate('/')
             }
           }
@@ -73,14 +73,10 @@ const AdminPage = () => {
     return(
       <>
       <Navbar loguser = {logUser} />
-      <div className="head">Administrator Options</div>
-        <div className='links'>
-          <div><a className='link' href="/admin/employee_register">Create an employee account</a></div>
-          
-          <div><a className='link' href="/admin/info">Database Search</a></div>
-        </div>
+     <div className="head">Client Applications</div>
+
         </>
       );
 }
 
-export default AdminPage;
+export default Planner;
