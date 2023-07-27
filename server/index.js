@@ -13,9 +13,9 @@ const { stringify } = require("querystring");
 const ReactError = require('./ReactError')
 
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "SLMy23$spin"
+    host: "wms-database.cwhe5uu2sq6p.ap-south-1.rds.amazonaws.com",
+    user: "admin",
+    password: "mzV4DZB57j3VPtTvCVS9"
   });
   
 con.connect(function(err) {
