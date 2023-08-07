@@ -106,7 +106,7 @@ const Appln2 =() =>{
         <div style={{color: 'red'}}>{flash}</div>
         <h1 className="event-title">Event Details</h1>
         <br/><br/>
-        <form >
+        <form>
           {/* Event type */}
           <div className="input-container">
             <label htmlFor="event"><span className="bold-text">Choose the type of event:</span></label>

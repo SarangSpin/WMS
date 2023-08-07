@@ -38,7 +38,7 @@ const Home = () => {
         <>
         <Navbar loguser = {logUser} />
         <div className="content">
-            <div className="title">Welcome to Home page!</div>
+        <div className="title">Welcome to Home page!</div>
         <div className="apply">{Appl()}</div>
         
         </div>
