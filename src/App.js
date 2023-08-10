@@ -6,18 +6,17 @@ import ErrorPage from './pages/error';
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Home from './pages/home';
-import Appln1 from './pages/app_page1';
-import Appln2 from './pages/app_page2';
+import Appln1 from './pages/appl_userdetails';
+import Appln2 from './pages/appl_main_event';
 import AdminPage from './pages/admin';
 import EmployeeReg from './pages/employeereg';
 import DbInfo from './pages/dbinfo';
 import Planner from './pages/planner';
 import OsManager from './pages/osm';
-import SubEvent from './pages/subEvent';
+import SubEvent from './pages/appl_subEvent';
 import Task from './pages/task';
-import ExistingEvents from './pages/existingEvents';
-import ExistingTasks from './pages/existingTasks';
-import ExistingSubEvents from './pages/existingSubEvents';
+import SubEventForm from './pages/subEvent_Form';
+
 function App() {
   
   
@@ -60,12 +59,12 @@ function App() {
     element: <ErrorBoundary FallbackComponent={ErrorPage}><Appln2 /></ErrorBoundary>
   },
   {
-    path:'/appl3',
-    element:<ErrorBoundary FallbackComponent={ErrorPage}><SubEvent/></ErrorBoundary>
+    path: '/sub_event',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><SubEvent /></ErrorBoundary>
   },
   {
-    path:'/appl4',
-    element:<ErrorBoundary FallbackComponent={ErrorPage}><Task/></ErrorBoundary>
+    path: '/sub_event/form',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}> <SubEventForm /> </ErrorBoundary>
   },
 
   {
@@ -94,20 +93,8 @@ function App() {
     <p>Page not found</p>
     <Link to={'/'}>Return to home Page</Link>
   </div></ErrorBoundary>
-  },
-  {
-    path:'/exist',
-    element:<ExistingEvents/>
-  },
-  {
-    path:'existSub',
-    element:<ExistingSubEvents/>
-
-  },
-  {
-    path:'/existTask',
-    element:<ExistingTasks/>
   }
+  
 ]
   )
 

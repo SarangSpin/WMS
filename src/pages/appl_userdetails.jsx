@@ -5,6 +5,7 @@ import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
 import Navbar from "./navbar";
 
+
 const Appln1 = () => {
 
   const {showBoundary} = useErrorBoundary()
@@ -90,8 +91,13 @@ const Appln1 = () => {
         data: newAppl
     }).then(res=>{
       if(res.data.status){
-        setappl_id(res.data.application_id)
+        console.log(res.data.application_id)
         alert('Application part 1 successfully registered')
+        const url = '/appl2'
+        //window.history.pushState({data: res.data.application_id} , "" , url);
+        navigate(`/appl2`,{
+          state: res.data.application_id
+        } )
 
         
       }
@@ -191,7 +197,7 @@ const Appln1 = () => {
         </div>
         <div className="submit">
           <input type="submit" onClick={e=>handleSubmit(e)} className="submit-button" />
-          <button><Link to={`/appl2${appl_id ? `?applid=${appl_id}`: ''}`} >Next</Link></button>
+          
         </div>
 
       </form>

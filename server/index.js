@@ -103,6 +103,8 @@ passport.deserializeUser(function(user, done){
 })
 
 app.use((req,res, next)=>{
+  console.log(req.url)
+  console.log()
     res.locals.flash = null
     next();
 })
@@ -293,7 +295,7 @@ app.post('/appl2', (req, res, next) => {
   console.log(data2)
 
   const query = `INSERT INTO ewm_clients.appln_details (event_, cus_event, description_, population, budget, cus_low_budget, appl_id, start_date, end_date)
-    VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', ${data2[3]}, ${data2[4]}, ${data2[5]}, '${data2[6]}', ${data2[7]}, ${data2[8]})`;
+    VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', ${data2[3]}, ${data2[4]}, ${data2[5]}, '${data2[6]}', '${data2[7]}', '${data2[8]}')`;
 
   con.query(query, (err) => {
     if (err) next(err);
@@ -303,9 +305,50 @@ app.post('/appl2', (req, res, next) => {
   res.send({
     result: data2,
     status: true,
+    application_id: appl_id,
     flash: req.flash('success')
   });
 });
+
+app.post('/sub_event', (req, res, next)=>{
+  const subEventBody = [
+    req.body.subEvent_,
+    req.body.description_,
+    req.body.population,
+    req.body.applid,
+    req.body.startTime,
+    req.body.endTime,
+    req.body.eventDate,
+    sub_event_id = uuidv4()
+  ];
+
+  console.log(subEventBody);
+
+  con.query(`INSERT INTO ewm_clients.sub_events (name, start_time, end_time, description, event_date, population, sub_event_id, main_event_id) VALUES ('${subEventBody[0]}', '${subEventBody[4]}', '${subEventBody[5]}', '${subEventBody[1]}','${subEventBody[6]}',${subEventBody[2]}, '${subEventBody[7]}', '${subEventBody[3]}' )`,
+  (err)=>{
+    if (err) next(err);
+  } )
+  req.flash('success', 'Sub-Event Registered Succesfully!');
+  res.send({
+    status: true,
+    flash: req.flash('success')
+  });
+
+})
+
+app.get('/sub_event', (req, res) =>{
+  const {applid} = req.params;
+  
+  con.query(`SELECT * FROM ewm_clients.sub_events WHERE main_event_id = '${applid}' `,
+  async(err, data)=>{
+    if (err) next(err);
+    res.send({
+      status: true,
+      data: data
+    })
+
+  })
+})
 
 
 app.use((err, req, res, next)=>{

@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from "react";
 import './htmlfiles/applications(css)/application3.css'
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
 import Navbar from "./navbar";
 
 const Appln2 =() =>{
+  function formatDate(inputDate) {
+    const dateParts = inputDate.split('-');
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2];
+    return `${year}-${month}-${day}`;
+}
 
   const {showBoundary} = useErrorBoundary()
   const [logUser, setloguser] = useState(null)
- 
+  var stateVar = useLocation();
+  var appl_id = null
+  const stateData = stateVar.state;
 
   const navigate = useNavigate()
 
   useEffect(()=>{
+
+   console.log(stateVar.state)
+    
+    if(stateVar.state == '' || stateVar.state == null){
+      navigate('/appl1')
+    }
+
     Axios({
         method: 'GET',
         url: 'http://localhost:5000/user',
@@ -32,6 +48,8 @@ const Appln2 =() =>{
         }
     }, [])
     .catch((err)=> showBoundary(err))
+
+    
    
 
     
@@ -48,15 +66,12 @@ const Appln2 =() =>{
     const [cusHighBudget, setCusHighBudget] = useState(0);
     const [flash, setflash] = useState(null);
 
-    const [setapplid] = useSearchParams()
-    const appl_id = setapplid.get('applid')
-
-    //const [data2, setdata2] = useState(null)
     
-    // Function to handle form submission
+
+  
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Perform any necessary actions with the form data
+      
       
       let data2 = [
         event,
@@ -69,7 +84,10 @@ const Appln2 =() =>{
       console.log(data2)
       if (data2.includes(null)){
         setflash('Fill the required fields')
-        navigate('/appl2')
+        navigate('/appl2',{
+          state: stateData
+          
+        })
   
       }
       else{
@@ -83,7 +101,7 @@ const Appln2 =() =>{
             budget: budget,
             cusLowBudget: cusLowBudget,
             cusHighBudget: cusHighBudget,
-            applid: appl_id
+            applid: stateVar.state
           };
           Axios({
             method: 'POST',
@@ -92,15 +110,24 @@ const Appln2 =() =>{
             data: newAppl
         }).then(res=>{
           if(res.data.status){
-            alert('Application part 2 successfully registered, if part 1 is missing, please fill in the same')
+            console.log(res.data.application_id)
+            alert('Application part 2 successfully registered')
+            console.log(stateData)
             
+            navigate(`/sub_event`,{
+              state: 
+                stateData
+              
+            } )
           }
         })
       }
     };
   
     return (
+      
       <>
+      
       <Navbar loguser = {logUser} />
       <div>
         <div style={{color: 'red'}}>{flash}</div>
@@ -111,10 +138,11 @@ const Appln2 =() =>{
           <div className="input-container">
             <label htmlFor="event"><span className="bold-text">Choose the type of event:</span></label>
             <select name="event" id="event" value={event} onChange={(e) => setEvent(e.target.value)} required>
+            <option value="custom">---</option>
               <option value="wedding">Wedding</option>
               <option value="corporate">Corporate Event</option>
               <option value="party">Party</option>
-              <option value="custom">---</option>
+              
               <option value="custom">Custom</option>
 
             </select>
@@ -143,9 +171,9 @@ const Appln2 =() =>{
           <div className="input-container">
             <span className="bold-text">Enter Preferred dates of the event</span><br/>
             <label htmlFor="s-date">From</label>
-            <input type="date" name="s-date" id="s-date" defaultChecked={null} onChange={(e) => setStartDate(e.target.value)} required/>
+            <input type="date" name="s-date" id="s-date" defaultChecked={null} onChange={(e) => setStartDate(formatDate(e.target.value))} required/>
             <label htmlFor="e-date">To</label>
-            <input type="date" name="e-date" id="e-date" defaultChecked={null} onChange={(e) => setEndDate(e.target.value)} required/>
+            <input type="date" name="e-date" id="e-date" defaultChecked={null} onChange={(e) => setEndDate(formatDate(e.target.value))} required/>
           </div>
           
           {/* Population */}
@@ -159,11 +187,12 @@ const Appln2 =() =>{
           <div className="input-container">
             <label htmlFor="budget"><span className="bold-text">Choose the rough budget:</span></label>
             <select name="budget" id="budget"  value={budget} onChange={(e) => setBudget(e.target.value)} required>
+            <option value="10-25">----</option>
               <option value="0-5">0-5 lakhs</option>
               <option value="5-10">5-10 lakhs</option>
               <option value="10-25">10-25 lakhs</option>
               <option value="custom">Custom</option>
-            </select>
+            </select>m
             <br/>
             <br/>
             {/* Custom budget */}

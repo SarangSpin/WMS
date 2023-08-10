@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from "react";
-import './htmlfiles/applications(css)/application3.css'
+import Axios  from "axios";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import  Axios from "axios";
-import {useErrorBoundary } from "react-error-boundary";
-import Navbar from "./navbar";
+import { useLocation } from "react-router-dom";
 
-const SubEvent = () => {
- const {showBoundary} = useErrorBoundary();
-  const [logUser, setloguser] = useState(null);
-  const [subEvent, setsubEvent] = useState(null);
+
+
+const SubEventForm = () => {
+
+    const [subEvent, setsubEvent] = useState(null);
   const [description,setDescription]=useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [eventDate, seteventDate] = useState(null);
   const [population, setPopulation] = useState(0);
   const [flash, setflash] = useState(null);
-  const [setapplid] = useSearchParams();
-    const appl_id = setapplid.get('applid')
-    const navigate = useNavigate()
-    useEffect(()=>{
-        Axios({
-            method: 'GET',
-            url: 'http://localhost:5000/user',
-            withCredentials: true
-        }).then((res)=>{
-          if(res.data.err){
-            showBoundary(res.data.err)
-          }
-            if(res.data){
-                setloguser(res.data)
-                console.log(res.data)
-            }
-            else{
-              navigate('/login')    
-                alert('You need to login first')
-            }
-        }, [])
-        .catch((err)=> showBoundary(err))
-       
-    
-        
-    }, [])
+  const [setapplid] = useSearchParams()
+  var appl_id = null
+  var stateVar = useLocation()
+  const stateData = stateVar.state
+  const navigate = useNavigate()
 
-  
+  useEffect(()=>{
+    console.log(stateVar.state)
+    
+    if(stateVar.state == '' || stateVar.state == null){
+      navigate('/appl1')
+    }
+  }, [])
+  function formatDate(inputDate) {
+    const dateParts = inputDate.split('-');
+    const year = dateParts[0];
+    const month = dateParts[1];
+    const day = dateParts[2];
+    return `${year}-${month}-${day}`;
+}
+
+function formatTime(inputTime) {
+  const timeParts = inputTime.split(':');
+  const hour = timeParts[0];
+  const minute = timeParts[1];
+  return `${hour}:${minute}:00`;
+}
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform any necessary actions with the form data
+    
     
     let data3 = [
       subEvent,
@@ -54,13 +54,16 @@ const SubEvent = () => {
       eventDate,
       startTime,
       endTime,
-      description
     ]
     
     console.log(data3)
     if (data3.includes(null)){
       setflash('Fill the required fields')
-      navigate('/appl3')
+      navigate('/sub_event/form',{
+        state:
+          stateData
+        
+      })
 
     }
     else{
@@ -71,24 +74,29 @@ const SubEvent = () => {
           startTime: startTime,
           endTime: endTime,
           population: population,
-          applid: appl_id
+          eventDate: eventDate,
+          applid: stateData
         };
         Axios({
           method: 'POST',
-          url: 'http://localhost:5000/appl3',
+          url: 'http://localhost:5000/sub_event',
           withCredentials: true,
           data: newAppl
       }).then(res=>{
         if(res.data.status){
           alert('Your SubEvent is successfully registered')
-          
+          navigate(`/sub_event`,{
+            state:
+              stateData
+            
+          })
         }
       })
     }
   };
-  return (
-    <>
-        <Navbar loguser = {logUser} />
+
+    return(
+
         <div>
             <div style={{color: 'red'}}>{flash}</div>
             <h1 className="event-title">Sub-Event Details</h1>
@@ -97,11 +105,14 @@ const SubEvent = () => {
           <div className="input-container">
             <label htmlFor="subevent"><span className="bold-text">Choose the type of sub-event:</span></label>
             <select name="subevent" id="subevent" value={subEvent} onChange={(e) => setsubEvent(e.target.value)} required>
+            <option value="custom">---</option>
+            
               <option value="food">Food</option>
               <option value="muhurtham">Muhurtham</option>
               <option value="reception">Reception</option>
-              <option value="custom">---</option>
               <option value="custom">Custom</option>
+              
+              
 
             </select>
           </div>
@@ -129,7 +140,7 @@ const SubEvent = () => {
           <div className="input-container">
             <span className="bold-text">Enter Preferred dates of the event</span><br/>
             
-            <input type="date" name="date" id="date" value={eventDate} defaultChecked={null} onChange={(e) => seteventDate(e.target.value)} required/>
+            <input type="date" name="date" id="date" value={eventDate} defaultChecked={null} onChange={(e) => seteventDate(formatDate(e.target.value))} required/>
           </div>
           
           {/* Population */}
@@ -142,9 +153,9 @@ const SubEvent = () => {
           <div className="input-container">
             <span className="bold-text">Enter Timings of the event</span><br/>
             <label htmlFor="s-time">From</label>
-            <input type="time" name="s-time" id="s-time" defaultChecked={null} value={startTime} onChange={(e) => setStartTime(e.target.value)} required/>
+            <input type="time" name="s-time" id="s-time" defaultChecked={null} value={startTime} onChange={(e) => setStartTime(formatTime(e.target.value))} required/>
             <label htmlFor="e-time">To</label>
-            <input type="time" name="e-time" id="e-time" defaultChecked={null} value={endTime} onChange={(e) => setEndTime(e.target.value)} required/>
+            <input type="time" name="e-time" id="e-time" defaultChecked={null} value={endTime} onChange={(e) => setEndTime(formatTime(e.target.value))} required/>
           </div>
           {/* Submit button */}
           <div className="input-container">
@@ -153,8 +164,7 @@ const SubEvent = () => {
         </form>
         </div>
 
-    </>
-  )
+    );
 }
 
-export default SubEvent;
+export default SubEventForm;
