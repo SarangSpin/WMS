@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import './htmlfiles/applications(css)/application3.css'
+import './htmlfiles/applications(css)/subeventPage.css'
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
 import Navbar from "./navbar";
+import { Link } from "react-router-dom";
+
 
 const SubEvent = () => {
 
-  
+
+  const [subEvents, setSubEvents] = useState([]);
 
  const {showBoundary} = useErrorBoundary();
   const [logUser, setloguser] = useState(null);
@@ -16,6 +19,7 @@ const SubEvent = () => {
   var stateVar = useLocation()
   var appl_id = null
   const stateData = stateVar.state
+  appl_id = stateData
 
     const navigate = useNavigate()
     useEffect(()=>{
@@ -50,7 +54,33 @@ const SubEvent = () => {
           withCredentials: true
         }).then(
           (res)=>{
-            console.log(res)
+            console.log(res.data.data)
+            setSubEvents(res.data.data)
+            const renderComp = res.data.data.map((value)=>{
+              return(
+                <div>
+        <div className="card">
+          <div className="img">
+            <img src="" alt="" />
+          </div>
+          <div className="content">
+            <div className="subEventname">{value.name}</div>
+            <div className="eventDate">{value.event_date}</div>
+            <div className="time">{value.start_time} - {value.end_time}</div>
+          </div>
+          <div>
+            
+            <Link to={`/sub_event/show`} state= {value.sub_event_id} >View More</Link>
+            
+          </div>
+        </div>
+        </div>
+              )
+            })
+            setSubEvents(renderComp)
+            
+            
+            
           }
         )
        
@@ -73,26 +103,19 @@ const SubEvent = () => {
 
   
   return (
-    <>
+    <div className="main">
         <Navbar loguser = {logUser} />
-        <div><h1>Sub-Events</h1></div>
-
-
-        <div className="card">
-          <div className="img">
-            <img src="" alt="" />
-          </div>
-          <div className="content">
-            <div className="subEventname"></div>
-            <div className="eventDate"></div>
-          </div>
-        </div>
+        <div className="Container">
+        <div className="title"><h1 className="titlename">Sub-Events</h1></div>
+        <div>{subEvents}</div>
+        
 
         <button onClick={handleSubmit}>Add Sub Event</button>
+        </div>
         
 
 
-    </>
+    </div>
   )
 }
 

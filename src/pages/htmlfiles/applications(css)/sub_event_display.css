@@ -1,0 +1,36 @@
+.header {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 10px;
+  }
+  
+  /* Styling for the Content */
+  .content {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Description Styles */
+  .description {
+    margin-bottom: 8px;
+  }
+  
+  /* Population Styles */
+  .pop {
+    color: #888;
+    margin-bottom: 8px;
+  }
+  
+  /* Event Date Styles */
+  .eventDate {
+    color: #555;
+    margin-bottom: 4px;
+  }
+  
+  /* Time Styles */
+  .time {
+    color: #555;
+  }

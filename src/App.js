@@ -16,6 +16,7 @@ import OsManager from './pages/osm';
 import SubEvent from './pages/appl_subEvent';
 import Task from './pages/task';
 import SubEventForm from './pages/subEvent_Form';
+import SubEventDisplay from './pages/sub_event_display';
 
 function App() {
   
@@ -65,6 +66,10 @@ function App() {
   {
     path: '/sub_event/form',
     element: <ErrorBoundary FallbackComponent={ErrorPage}> <SubEventForm /> </ErrorBoundary>
+  },
+  {
+    path: 'sub_event/show',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}> <SubEventDisplay /> </ErrorBoundary>
   },
 
   {

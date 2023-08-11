@@ -2,7 +2,7 @@ import Axios  from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import './htmlfiles/applications(css)/application3.css'
 
 
 const SubEventForm = () => {
@@ -98,6 +98,7 @@ function formatTime(inputTime) {
     return(
 
         <div>
+          
             <div style={{color: 'red'}}>{flash}</div>
             <h1 className="event-title">Sub-Event Details</h1>
             <form >

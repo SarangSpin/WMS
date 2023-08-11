@@ -67,6 +67,7 @@ const Appln1 = () => {
       city,
       state,
       pincode,
+      logUser.user_id
     ];
     
     if (data1.includes(null)) {
@@ -82,7 +83,8 @@ const Appln1 = () => {
         city: city,
         state: state,
         pincode: pincode,
-        flash: flash
+        flash: flash,
+        user_id: logUser.user_id
       };
       Axios({
         method: 'POST',

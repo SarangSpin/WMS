@@ -337,9 +337,26 @@ app.post('/sub_event', (req, res, next)=>{
 })
 
 app.get('/sub_event', (req, res) =>{
-  const {applid} = req.params;
+  const applid = req.query.applid;
+  console.log(applid)
+  console.log(req.query)
   
   con.query(`SELECT * FROM ewm_clients.sub_events WHERE main_event_id = '${applid}' `,
+  async(err, data)=>{
+    if (err) next(err);
+    res.send({
+      status: true,
+      data: data
+    })
+
+  })
+})
+
+app.get('/sub_event/:id', (req, res) =>{
+  const id = req.params.id;
+  console.log(id)
+
+  con.query(`SELECT * FROM ewm_clients.sub_events WHERE sub_event_id = '${id}' `,
   async(err, data)=>{
     if (err) next(err);
     res.send({
