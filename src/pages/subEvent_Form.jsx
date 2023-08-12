@@ -150,6 +150,11 @@ function formatTime(inputTime) {
             <input type="number" name="population" id="population" value={population}  onChange={(e) => setPopulation(e.target.value)} required/>
           </div>
           <br/><br/>
+          <div className="input-container">
+            <label htmlFor="image"><span className="bold-text">Upload images for reference (optional)</span><br/></label>
+            <input type="file" name="image" id="population" required/>
+          </div>
+          <br/><br/>
           {/* Event Timings */}
           <div className="input-container">
             <span className="bold-text">Enter Timings of the event</span><br/>

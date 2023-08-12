@@ -110,8 +110,8 @@ let OsManager = () => {
           <li><a href="#">About</a></li>
           <li><a href="#">Help</a></li>
           
-            <li class="dropdown">
-        <a href="#" class="dropbtn">{username()}</a>
+            <li className="dropdown">
+        <a href="#" className="dropbtn">{username()}</a>
         <div className="dropdown-content">
         {LoggedIn()}
         {AdminStatus()}

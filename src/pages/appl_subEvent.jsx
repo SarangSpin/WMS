@@ -88,7 +88,7 @@ const SubEvent = () => {
         
     }, [])
 
-    const handleSubmit = (e) => {
+    const handleAdd = (e) => {
       e.preventDefault();
       
       navigate('/sub_event/form', {
@@ -97,6 +97,28 @@ const SubEvent = () => {
         
       });
 
+    }
+
+    const handleSubmit =(e) =>{
+      e.preventDefault();
+
+      const submitBody = {
+        assignment_id: stateData
+      }
+
+      Axios({
+        method: 'POST',
+        url: 'http://localhost:5000/appln_submit',
+        withCredentials: true,
+        data: submitBody
+    }).then((res)=>{
+        if(res.data.status){
+            console.log(res.data);
+            alert('Your Application has been submitted successfully ')
+            navigate('/')
+        }
+        
+    }, []).catch((err)=> showBoundary(err))
     }
 
   
@@ -110,7 +132,8 @@ const SubEvent = () => {
         <div>{subEvents}</div>
         
 
-        <button onClick={handleSubmit}>Add Sub Event</button>
+        <button onClick={handleAdd}>Add Sub Event</button>
+        <button onClick={handleSubmit}> Submit your Application </button>
         </div>
         
 

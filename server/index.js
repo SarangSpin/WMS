@@ -11,6 +11,10 @@ const flash = require('connect-flash')
 const { v4: uuidv4 } = require('uuid');
 const { stringify } = require("querystring");
 const ReactError = require('./ReactError')
+const multer = require("multer");
+
+
+
 
 const con = mysql.createConnection({
     host: "wms-database.cwhe5uu2sq6p.ap-south-1.rds.amazonaws.com",
@@ -108,6 +112,20 @@ app.use((req,res, next)=>{
     res.locals.flash = null
     next();
 })
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'assets/images')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now()
+    cb(null, file.fieldname + '-' + uniqueSuffix)
+  }
+})
+
+
+const upload = multer({ storage: storage })
+
 app.post('/login', (req,res,next)=>{
     
     if(req.body.username == null || req.body.password == null){
@@ -336,7 +354,7 @@ app.post('/sub_event', (req, res, next)=>{
 
 })
 
-app.get('/sub_event', (req, res) =>{
+app.get('/sub_event', (req, res, next) =>{
   const applid = req.query.applid;
   console.log(applid)
   console.log(req.query)
@@ -352,7 +370,7 @@ app.get('/sub_event', (req, res) =>{
   })
 })
 
-app.get('/sub_event/:id', (req, res) =>{
+app.get('/sub_event/:id', (req, res, next) =>{
   const id = req.params.id;
   console.log(id)
 
@@ -364,6 +382,98 @@ app.get('/sub_event/:id', (req, res) =>{
       data: data
     })
 
+  })
+})
+
+app.get('/planner/applications', (req, res, next)=>{
+
+  const k = `SELECT * FROM ewm_operational.assignments CROSS JOIN ewm_clients.appln_details  ON ewm_operational.assignments.appl_id = ewm_clients.appln_details.appl_id`
+  con.query(k, async(err,data)=>{
+    if (err) next(err);
+    else{
+      res.send({
+        status: true,
+        data:data
+      })
+      
+}
+})
+})
+
+  
+  
+
+  
+
+app.post('/appln_submit', (req,res, next)=>{
+  const timestamp = Date.now();
+
+// Convert the timestamp to a Date object
+const currentDate = new Date(timestamp);
+
+// Extract components from the Date object
+const year = currentDate.getFullYear();
+const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+const day = String(currentDate.getDate()).padStart(2, '0');
+const hours = String(currentDate.getHours()).padStart(2, '0');
+const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+
+// Format into MySQL DATETIME format: 'YYYY-MM-DD HH:MM:SS'
+const mysqlDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+
+  const subBody = [
+    req.body.assignment_id,
+    'unassigned',
+    mysqlDatetime,
+
+  ]
+  const q = `INSERT into ewm_operational.assignments (appl_id, status, appln_date) VALUES ('${subBody[0]}', '${subBody[1]}', '${subBody[2]}')`;
+  con.query(q, (err)=>{
+    if (err) next(err);
+    else{
+      res.send({
+        status: true
+      })
+    }
+
+  })
+})
+
+app.post('/add_task', (req, res, next)=>{
+ 
+  const submitBody = [
+    req.body.sub_event_id,
+    task_id = uuidv4(),
+    req.body.task_name,
+    req.body.description,
+    req.body.deadline,
+    req.body.task_status
+  ] 
+
+  const q = `INSERT INTO ewm_clients.tasks (sub_event_id, task_id, task_name, description, deadline, task_status) VALUES ('${submitBody[0]}', '${submitBody[1]}', '${submitBody[2]}', '${submitBody[3]}', '${submitBody[4]}', '${submitBody[5]}')`;
+  con.query(q, (err)=>{
+    if (err) next(err);
+    else{
+      res.send({
+        status: true
+      })
+    }
+  })
+})
+
+app.get('/tasks', (req, res, next)=>{
+  const sub_event_id = req.query.id;
+  con.query(`SELECT * FROM ewm_clients.tasks WHERE sub_event_id = '${sub_event_id}'`, 
+  (err, data)=>{
+    if (err) next(err);
+    else{
+      res.send({
+        status: true,
+        data:data
+      })
+    }
   })
 })
 

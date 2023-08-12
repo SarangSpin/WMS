@@ -14,9 +14,12 @@ import DbInfo from './pages/dbinfo';
 import Planner from './pages/planner';
 import OsManager from './pages/osm';
 import SubEvent from './pages/appl_subEvent';
-import Task from './pages/task';
+import TaskForm from './pages/add_task';
+import TaskView from './pages/task_view';
 import SubEventForm from './pages/subEvent_Form';
 import SubEventDisplay from './pages/sub_event_display';
+import PlannerView from './pages/planner_view';
+import PlannerSubEvent from './pages/planner_sub_events';
 
 function App() {
   
@@ -89,6 +92,23 @@ function App() {
     path: '/planner',
     element: <ErrorBoundary FallbackComponent={ErrorPage}><Planner /></ErrorBoundary>
   },
+  {
+    path: 'planner/show',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><PlannerView /></ErrorBoundary>
+  },
+  {
+    path: 'planner/show/sub_events',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><PlannerSubEvent /></ErrorBoundary>
+  },
+  {
+    path: 'planner/show/sub_events/add_task',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><TaskForm /></ErrorBoundary>
+  },
+  {
+    path: 'planner/show/sub_events/tasks',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><TaskView /></ErrorBoundary>
+  },
+
 
   {
     path: '*',
@@ -110,11 +130,6 @@ function App() {
        
      <div className="container">
     <RouterProvider router={router} />
-    
-      
-     
-      
-        
       </div>
       
       

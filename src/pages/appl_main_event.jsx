@@ -109,6 +109,7 @@ const Appln2 =() =>{
             withCredentials: true,
             data: newAppl
         }).then(res=>{
+
           if(res.data.status){
             console.log(res.data.application_id)
             alert('Application part 2 successfully registered')
@@ -120,7 +121,7 @@ const Appln2 =() =>{
               
             } )
           }
-        })
+        }).catch((err)=> showBoundary(err))
       }
     };
   
@@ -183,6 +184,13 @@ const Appln2 =() =>{
           </div>
           <br/>
           <br/>
+          <div className="input-container">
+            <label htmlFor="image"><span className="bold-text">Upload images for reference (optional)</span><br/></label>
+            <input type="file" name="image" id="population" required/>
+          </div>
+          <br/>
+          <br/>
+          
           {/* Budget */}
           <div className="input-container">
             <label htmlFor="budget"><span className="bold-text">Choose the rough budget:</span></label>
@@ -207,6 +215,9 @@ const Appln2 =() =>{
           </div>
           <br/>
           <br/>
+          <div>
+            
+          </div>
           {/* Submit button */}
           <div className="input-container">
             <input type="submit" value="Submit" onClick={e=>handleSubmit(e)}/>
