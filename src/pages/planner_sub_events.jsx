@@ -22,7 +22,7 @@ const PlannerSubEvent = ()=>{
     useEffect(()=>{
       Axios({
           method: 'GET',
-          url: 'http://localhost:5000/user',
+          url: 'http://153.92.5.199:5000/user',
           withCredentials: true
       }).then((res)=>{
         if(res.data.err){
@@ -53,7 +53,7 @@ const PlannerSubEvent = ()=>{
       
       Axios({
         method: 'GET',
-        url: `http://localhost:5000/sub_event?applid=${appl_id}`,
+        url: `http://153.92.5.199:5000/sub_event?applid=${appl_id}`,
         withCredentials: true
       }).then(
         (res)=>{

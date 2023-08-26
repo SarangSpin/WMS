@@ -20,7 +20,7 @@ const Planner = () => {
   useEffect(()=>{
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
@@ -47,7 +47,7 @@ const Planner = () => {
 
     Axios({
       method: 'GET',
-      url: 'http://localhost:5000/planner/applications',
+      url: 'http://153.92.5.199:5000/planner/applications',
       withCredentials: true
   }).then((res)=>{
     if(res.data.err){

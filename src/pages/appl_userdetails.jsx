@@ -17,7 +17,7 @@ const Appln1 = () => {
   useEffect(()=>{
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
@@ -32,7 +32,7 @@ const Appln1 = () => {
             alert('You need to login first')
         }
     }, [])
-    .catch((err)=> showBoundary(err))
+    .catch((err)=>console.log(err))
    
 
     
@@ -88,7 +88,7 @@ const Appln1 = () => {
       };
       Axios({
         method: 'POST',
-        url: 'http://localhost:5000/appl1',
+        url: 'http://153.92.5.199:5000/appl1',
         withCredentials: true,
         data: newAppl
     }).then(res=>{

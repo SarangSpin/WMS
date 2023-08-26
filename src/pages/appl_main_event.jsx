@@ -16,6 +16,7 @@ const Appln2 =() =>{
 
   const {showBoundary} = useErrorBoundary()
   const [logUser, setloguser] = useState(null)
+  const [selectedImage, setSelectedImage] = useState(null);
   var stateVar = useLocation();
   var appl_id = null
   const stateData = stateVar.state;
@@ -32,11 +33,12 @@ const Appln2 =() =>{
 
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
-        showBoundary(res.data.err)
+	      console.log(res.data.err)
+       showBoundary(res.data.err)
       }
         if(res.data){
             setloguser(res.data)
@@ -105,7 +107,7 @@ const Appln2 =() =>{
           };
           Axios({
             method: 'POST',
-            url: 'http://localhost:5000/appl2',
+            url: 'http://153.92.5.199:5000/appl2',
             withCredentials: true,
             data: newAppl
         }).then(res=>{
@@ -115,7 +117,7 @@ const Appln2 =() =>{
             alert('Application part 2 successfully registered')
             console.log(stateData)
             
-            navigate(`/sub_event`,{
+            navigate(`/select_venue`,{
               state: 
                 stateData
               
@@ -186,7 +188,33 @@ const Appln2 =() =>{
           <br/>
           <div className="input-container">
             <label htmlFor="image"><span className="bold-text">Upload images for reference (optional)</span><br/></label>
-            <input type="file" name="image" id="population" required/>
+            <div>
+      
+
+      {selectedImage && (
+        <div>
+          <img
+            alt="not found"
+            width={"250px"}
+            src={URL.createObjectURL(selectedImage)}
+          />
+          <br />
+          <button onClick={() => setSelectedImage(null)}>Remove</button>
+        </div>
+      )}
+
+      <br />
+      <br />
+      
+      <input
+        type="file"
+        name="myImage"
+        onChange={(event) => {
+          console.log(event.target.files[0]);
+          setSelectedImage(event.target.files[0]);
+        }}
+      />
+    </div>
           </div>
           <br/>
           <br/>

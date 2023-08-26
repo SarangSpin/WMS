@@ -23,7 +23,7 @@ const Login = () => {
       }
       Axios({
           method: 'POST',
-          url: 'http://localhost:5000/login',
+          url: 'http://153.92.5.199:5000/login',
           withCredentials: true,
           data: inputs
       }).then(res => {
@@ -49,7 +49,7 @@ const Login = () => {
               
           }}
       })
-      .catch((err)=>showBoundary(err))
+      .catch((err)=> console.log(err))
 
   }
   return (

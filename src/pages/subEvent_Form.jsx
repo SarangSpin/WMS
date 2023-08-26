@@ -2,10 +2,12 @@ import Axios  from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import './htmlfiles/applications(css)/application3.css'
+import './htmlfiles/applications(css)/application3.css';
+import { useErrorBoundary } from "react-error-boundary";
 
 
 const SubEventForm = () => {
+  const {showBoundary} = useErrorBoundary()
 
     const [subEvent, setsubEvent] = useState(null);
   const [description,setDescription]=useState(null);
@@ -13,6 +15,7 @@ const SubEventForm = () => {
   const [endTime, setEndTime] = useState(null);
   const [eventDate, seteventDate] = useState(null);
   const [population, setPopulation] = useState(0);
+  const [logUser, setloguser] = useState(null)
   const [flash, setflash] = useState(null);
   const [setapplid] = useSearchParams()
   var appl_id = null
@@ -26,7 +29,28 @@ const SubEventForm = () => {
     if(stateVar.state == '' || stateVar.state == null){
       navigate('/appl1')
     }
+    Axios({
+      method: 'GET',
+      url: 'http://153.92.5.199:5000/user',
+      withCredentials: true
+  }).then((res)=>{
+    if(res.data.err){
+      showBoundary(res.data.err)
+    }
+      if(res.data){
+          setloguser(res.data)
+          console.log(res.data)
+      }
+      else{
+        navigate('/login')    
+          alert('You need to login first')
+      }
+    })
+  .catch((err)=> showBoundary(err))
   }, [])
+
+  
+
   function formatDate(inputDate) {
     const dateParts = inputDate.split('-');
     const year = dateParts[0];
@@ -79,7 +103,7 @@ function formatTime(inputTime) {
         };
         Axios({
           method: 'POST',
-          url: 'http://localhost:5000/sub_event',
+          url: 'http://153.92.5.199:5000/sub_event',
           withCredentials: true,
           data: newAppl
       }).then(res=>{

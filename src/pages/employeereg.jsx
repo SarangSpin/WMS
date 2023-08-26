@@ -30,7 +30,7 @@ const EmployeeReg = () =>{
   useEffect(()=>{
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
@@ -80,7 +80,7 @@ const handleSubmit = (e) => {
 
     Axios({
       method: 'POST',
-      url: 'http://localhost:5000/employee_reg',
+      url: 'http://153.92.5.199:5000/employee_reg',
       withCredentials: true,
       data: inputs
   }).then( res => {
@@ -114,7 +114,7 @@ const handleSubmit = (e) => {
         
         Axios({
             method: 'POST',
-            url: 'http://localhost:5000/logout',
+            url: 'http://153.92.5.199:5000/logout',
             withCredentials: true
         }).then((res)=>{
             console.log(res.data.message)

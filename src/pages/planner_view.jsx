@@ -4,6 +4,9 @@ import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
 import Navbar from "./navbar";
 import { Link } from "react-router-dom";
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import StarRating from 'star-rating-react';
+
 
 
 const PlannerView = ()=>{
@@ -12,16 +15,19 @@ const PlannerView = ()=>{
     const [logUser, setloguser] = useState(null)
     const setvalue = useLocation()
     var value = {};
+    const [venue, setvenue] = useState(null)
 
     var renderComp;
    
   
     const navigate = useNavigate()
+    value = setvalue.state;
+      console.log(value)
   
     useEffect(()=>{
       Axios({
           method: 'GET',
-          url: 'http://localhost:5000/user',
+          url: 'http://153.92.5.199:5000/user',
           withCredentials: true
       }).then((res)=>{
         if(res.data.err){
@@ -46,6 +52,52 @@ const PlannerView = ()=>{
       })
       .catch((err)=> showBoundary(err))
 
+
+      Axios({
+        method: 'GET',
+        url: `http://153.92.5.199:5000/venue?id=${value.venue_id}`,
+        withCredentials: true
+    }).then((res)=>{
+      if(res.data.err){
+        showBoundary(res.data.err)
+      }
+        if(res.data){
+           
+            console.log(res.data.data[0])
+            var valueVenue = res.data.data[0]
+            const renderComp = ()=>{
+                return(
+                    <div>
+
+                    <div style={infoStyle}>{valueVenue.venues_name}</div>
+                    <div >
+                
+                    <div>
+                    <div style={infoStyle}>City: {valueVenue.city}</div>
+                        
+                        <div style={infoStyle}>Location: {valueVenue.location}</div>
+                        <div style={infoStyle}>Rating: {valueVenue.rating}/10 
+                        
+                            </div>
+
+                    </div>
+                    
+                        </div>
+                        
+                        {/* <div className="description">{subEvent.description !== null ? subEvent.description : ''}</div> */}
+                        
+                    
+        
+                </div>
+                )
+              }
+              setvenue(renderComp(venue))
+              console.log(venue)
+        }
+        
+    })
+    .catch((err)=> showBoundary(err))
+
       
 
       
@@ -53,8 +105,7 @@ const PlannerView = ()=>{
 
         
     }, [])
-    value = setvalue.state;
-      console.log(value)
+    
 
 
     const containerStyle = {
@@ -153,6 +204,10 @@ const PlannerView = ()=>{
           <div style={infoStyle}>
             <p style={labelStyle}>Project Manager:</p>
             <p style={valueStyle}>{value.osm}</p>
+          </div>
+          <div style={infoStyle}>
+            <p style={labelStyle}>Venue:</p>
+            <div>{venue}</div>
           </div>
           {/* Add more sections for other details */}
           <div>

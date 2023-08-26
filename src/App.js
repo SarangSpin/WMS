@@ -20,6 +20,7 @@ import SubEventForm from './pages/subEvent_Form';
 import SubEventDisplay from './pages/sub_event_display';
 import PlannerView from './pages/planner_view';
 import PlannerSubEvent from './pages/planner_sub_events';
+import Venues from './pages/venues';
 
 function App() {
   
@@ -107,6 +108,10 @@ function App() {
   {
     path: 'planner/show/sub_events/tasks',
     element: <ErrorBoundary FallbackComponent={ErrorPage}><TaskView /></ErrorBoundary>
+  },
+  {
+    path: '/select_venue',
+    element: <ErrorBoundary FallbackComponent={ErrorPage}><Venues /></ErrorBoundary>
   },
 
 

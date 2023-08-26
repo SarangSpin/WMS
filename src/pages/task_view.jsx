@@ -19,7 +19,7 @@ const TaskView = () =>{
     useEffect(()=>{
         Axios({
             method: 'GET',
-            url: 'http://localhost:5000/user',
+            url: 'http://153.92.5.199:5000/user',
             withCredentials: true
         }).then((res)=>{
           if(res.data.err){
@@ -49,7 +49,7 @@ const TaskView = () =>{
 
       Axios({
         method: 'GET',
-        url: `http://localhost:5000/tasks?id=${sub_event_id}`,
+        url: `http://153.92.5.199:5000/tasks?id=${sub_event_id}`,
         withCredentials: true
       }).then(
         (res)=>{

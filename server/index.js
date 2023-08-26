@@ -17,10 +17,10 @@ const multer = require("multer");
 
 
 const con = mysql.createConnection({
-    host: "wms-database.cwhe5uu2sq6p.ap-south-1.rds.amazonaws.com",
+    host: "153.92.5.199",
     port: 3306,
-    user: "admin",
-    password: "mzV4DZB57j3VPtTvCVS9"
+    user: "evamgmt",
+    password: "evamgmt2023"
   });
   
 con.connect(function(err) {
@@ -37,10 +37,12 @@ app.listen(5000, (req, res)=>{
   console.log("Server running")
 })
 
-app.use(cors({
-    origin : 'http://localhost:3000',
+app.use(cors(
+	{
+    origin : 'http://153.92.5.199:8081',
     credentials: true
-}))
+}
+))
 
 app.use(bodyParser.json())
 app.use(session(
@@ -58,13 +60,13 @@ app.use(passport.session())
 
 passport.use(
     new localStrategy((username, password, done)=>{
-        q = `SELECT * FROM ewm_clients.registered WHERE username = '${username}'`
+        q = `SELECT * FROM evamgmt.registered WHERE username = '${username}'`
             con.query(q, (err,user)=>{
                 console.log(user)
                 if (!user || user == null || user === undefined || user[0] === undefined){
 
 
-                    p = `SELECT * FROM ewm_operational.employees WHERE first_name = '${username}'`
+                    p = `SELECT * FROM evamgmt.employees WHERE first_name = '${username}'`
                     con.query(p, (err, user2)=>{
                       console.log(user2)
                       if (!user2 || user2 == null || user2 === undefined || user2[0] === undefined){
@@ -109,7 +111,7 @@ passport.deserializeUser(function(user, done){
 app.use((req,res, next)=>{
   console.log(req.url)
   console.log()
-    res.locals.flash = null
+    res.locals.flash = null;
     next();
 })
 
@@ -125,6 +127,13 @@ const storage = multer.diskStorage({
 
 
 const upload = multer({ storage: storage })
+
+
+
+
+
+
+
 
 app.post('/login', (req,res,next)=>{
     
@@ -166,13 +175,21 @@ app.post('/login', (req,res,next)=>{
    }
 })
 app.get('/user',(req, res)=>{
-    
-    res.send(req.user)
+ console.log(req.user)
+//res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+	res.send(req.user)
 
 })
+app.get('/testing', (req, res)=>{
+res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+	res.send('working')})
 
 app.post('/register', (req, res, next)=>{
-    if((req.body.username == null || req.body.password == null) || req.body.email == null ){
+res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+	if((req.body.username == null || req.body.password == null) || req.body.email == null ){
         req.flash('error', 'Fields missing')
              res.send({
             status: 500,
@@ -181,7 +198,7 @@ app.post('/register', (req, res, next)=>{
         })
     }
     else{
-    con.query(`SELECT * FROM ewm_clients.registered WHERE username = '${req.body.username}'`, async(err, data)=>{
+    con.query(`SELECT * FROM evamgmt.registered WHERE username = '${req.body.username}'`, async(err, data)=>{
       if (err) { next(err); return; }
         if(data.length >=1){
             req.flash('error', 'User already exists')
@@ -199,7 +216,7 @@ app.post('/register', (req, res, next)=>{
                 email: req.body.email,
                 password: hashedPassword
             }
-            con.query(`INSERT INTO ewm_clients.registered (user_id, username, email_id, password) VALUES ('${newUser.user_id}','${newUser.username}','${newUser.email}','${newUser.password}')`, (err)=>{if (err) { next(err); return; } })
+            con.query(`INSERT INTO evamgmt.registered (user_id, username, email_id, password) VALUES ('${newUser.user_id}','${newUser.username}','${newUser.email}','${newUser.password}')`, (err)=>{if (err) { next(err); return; } })
             res.send({
               message: 'Success',
               status: true
@@ -210,7 +227,9 @@ app.post('/register', (req, res, next)=>{
 })
 
 app.post('/employee_reg', (req, res, next)=>{
-  if((req.body.firstName == '' || req.body.lastName == '') || req.body.email == '' ||req.body.phone == null || ''||undefined ||req.body.address == ''||req.body.designation == ''||req.body.password == '' ){
+res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+	if((req.body.firstName == '' || req.body.lastName == '') || req.body.email == '' ||req.body.phone == null || ''||undefined ||req.body.address == ''||req.body.designation == ''||req.body.password == '' ){
       req.flash('error', 'Fields missing')
            res.send({
           status: false,
@@ -219,7 +238,7 @@ app.post('/employee_reg', (req, res, next)=>{
       })
   }
   else{
-  con.query(`SELECT * FROM ewm_operational.employees WHERE first_name = '${req.body.firstName}'`, async(err, data)=>{
+  con.query(`SELECT * FROM evamgmt.employees WHERE first_name = '${req.body.firstName}'`, async(err, data)=>{
     if (err) { next(err); return; }
       if(data.length >=1){
           req.flash('error', 'User already exists')
@@ -243,7 +262,7 @@ app.post('/employee_reg', (req, res, next)=>{
         password: hashedPassword,
         admin_status: req.body.admin_status
           }
-          con.query(`INSERT INTO ewm_operational.employees (employee_id, first_name, last_name, email, phone, address, designation, password, admin_status, client) VALUES ('${newUser.employee_id}','${newUser.firstName}','${newUser.lastName}','${newUser.email}', ${newUser.phone}, '${newUser.address}', '${newUser.designation}', '${newUser.password}', '${newUser.admin_status}', 'no')`, (err)=>{if (err) { next(err); return; } })
+          con.query(`INSERT INTO evamgmt.employees (employee_id, first_name, last_name, email, phone, address, designation, password, admin_status, client) VALUES ('${newUser.employee_id}','${newUser.firstName}','${newUser.lastName}','${newUser.email}', ${newUser.phone}, '${newUser.address}', '${newUser.designation}', '${newUser.password}', '${newUser.admin_status}', 'no')`, (err)=>{if (err) { next(err); return; } })
           res.send({
             message: 'Success',
             status: true
@@ -281,8 +300,10 @@ app.post('/appl1', (req, res, next) => {
       appl_id = uuidv4(),
       user_id= req.user.user_id
     ];
-  
-    const query = `INSERT INTO ewm_clients.appln_user (first_name, last_name, email, phone_number, city, state, pincode,appl_id, user_id)
+res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+
+    const query = `INSERT INTO evamgmt.appln_user (first_name, last_name, email, phone_number, city, state, pincode,appl_id, user_id)
       VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', '${data2[3]}', '${data2[4]}', '${data2[5]}', '${data2[6]}', '${data2[7]}', '${data2[8]}')`;
   
     con.query(query, (err) => {
@@ -312,7 +333,7 @@ app.post('/appl2', (req, res, next) => {
   ];
   console.log(data2)
 
-  const query = `INSERT INTO ewm_clients.appln_details (event_, cus_event, description_, population, budget, cus_low_budget, appl_id, start_date, end_date)
+  const query = `INSERT INTO evamgmt.appln_details (event_, cus_event, description_, population, budget, cus_low_budget, appl_id, start_date, end_date)
     VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', ${data2[3]}, ${data2[4]}, ${data2[5]}, '${data2[6]}', '${data2[7]}', '${data2[8]}')`;
 
   con.query(query, (err) => {
@@ -342,7 +363,7 @@ app.post('/sub_event', (req, res, next)=>{
 
   console.log(subEventBody);
 
-  con.query(`INSERT INTO ewm_clients.sub_events (name, start_time, end_time, description, event_date, population, sub_event_id, main_event_id) VALUES ('${subEventBody[0]}', '${subEventBody[4]}', '${subEventBody[5]}', '${subEventBody[1]}','${subEventBody[6]}',${subEventBody[2]}, '${subEventBody[7]}', '${subEventBody[3]}' )`,
+  con.query(`INSERT INTO evamgmt.sub_events (name, start_time, end_time, description, event_date, population, sub_event_id, main_event_id) VALUES ('${subEventBody[0]}', '${subEventBody[4]}', '${subEventBody[5]}', '${subEventBody[1]}','${subEventBody[6]}',${subEventBody[2]}, '${subEventBody[7]}', '${subEventBody[3]}' )`,
   (err)=>{
     if (err) next(err);
   } )
@@ -359,7 +380,7 @@ app.get('/sub_event', (req, res, next) =>{
   console.log(applid)
   console.log(req.query)
   
-  con.query(`SELECT * FROM ewm_clients.sub_events WHERE main_event_id = '${applid}' `,
+  con.query(`SELECT * FROM evamgmt.sub_events WHERE main_event_id = '${applid}' `,
   async(err, data)=>{
     if (err) next(err);
     res.send({
@@ -374,7 +395,7 @@ app.get('/sub_event/:id', (req, res, next) =>{
   const id = req.params.id;
   console.log(id)
 
-  con.query(`SELECT * FROM ewm_clients.sub_events WHERE sub_event_id = '${id}' `,
+  con.query(`SELECT * FROM evamgmt.sub_events WHERE sub_event_id = '${id}' `,
   async(err, data)=>{
     if (err) next(err);
     res.send({
@@ -387,7 +408,7 @@ app.get('/sub_event/:id', (req, res, next) =>{
 
 app.get('/planner/applications', (req, res, next)=>{
 
-  const k = `SELECT * FROM ewm_operational.assignments CROSS JOIN ewm_clients.appln_details  ON ewm_operational.assignments.appl_id = ewm_clients.appln_details.appl_id`
+  const k = `SELECT * FROM evamgmt.assignments CROSS JOIN evamgmt.appln_details  ON evamgmt.assignments.appl_id = evamgmt.appln_details.appl_id`
   con.query(k, async(err,data)=>{
     if (err) next(err);
     else{
@@ -429,7 +450,7 @@ const mysqlDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     mysqlDatetime,
 
   ]
-  const q = `INSERT into ewm_operational.assignments (appl_id, status, appln_date) VALUES ('${subBody[0]}', '${subBody[1]}', '${subBody[2]}')`;
+  const q = `INSERT into evamgmt.assignments (appl_id, status, appln_date) VALUES ('${subBody[0]}', '${subBody[1]}', '${subBody[2]}')`;
   con.query(q, (err)=>{
     if (err) next(err);
     else{
@@ -452,7 +473,7 @@ app.post('/add_task', (req, res, next)=>{
     req.body.task_status
   ] 
 
-  const q = `INSERT INTO ewm_clients.tasks (sub_event_id, task_id, task_name, description, deadline, task_status) VALUES ('${submitBody[0]}', '${submitBody[1]}', '${submitBody[2]}', '${submitBody[3]}', '${submitBody[4]}', '${submitBody[5]}')`;
+  const q = `INSERT INTO evamgmt.tasks (sub_event_id, task_id, task_name, description, deadline, task_status) VALUES ('${submitBody[0]}', '${submitBody[1]}', '${submitBody[2]}', '${submitBody[3]}', '${submitBody[4]}', '${submitBody[5]}')`;
   con.query(q, (err)=>{
     if (err) next(err);
     else{
@@ -465,7 +486,7 @@ app.post('/add_task', (req, res, next)=>{
 
 app.get('/tasks', (req, res, next)=>{
   const sub_event_id = req.query.id;
-  con.query(`SELECT * FROM ewm_clients.tasks WHERE sub_event_id = '${sub_event_id}'`, 
+  con.query(`SELECT * FROM evamgmt.tasks WHERE sub_event_id = '${sub_event_id}'`, 
   (err, data)=>{
     if (err) next(err);
     else{
@@ -476,6 +497,62 @@ app.get('/tasks', (req, res, next)=>{
     }
   })
 })
+
+
+app.get('/venues', (req, res, next)=>{
+  
+  con.query(`SELECT * FROM evamgmt.venues;`, (err, data)=>{
+    if (err) {
+     
+      next(err);
+    }
+    else{
+      res.send({
+        status: true,
+        data:data
+      })
+
+    }
+
+  })
+})
+
+app.get('/venue', (req, res, next)=>{
+  const venue_id =req.query.id;
+  con.query(`SELECT * FROM evamgmt.venues WHERE venues_id = '${venue_id}';`, (err, data)=>{
+    if (err) {
+     
+      next(err);
+    }
+    else{
+      res.send({
+        status: true,
+        data:data
+      })
+
+    }
+
+  })
+})
+
+app.post('/add_venue', (req, res, next)=>{
+  const {venue_id, appl_id} = req.body;
+  con.query(`UPDATE evamgmt.appln_details SET venue_id = '${venue_id}' WHERE appl_id='${appl_id}';`, (err)=>{
+    if (err) {
+     
+      next(err);
+    }
+    else{
+      res.send({
+        status: true,
+      })
+
+    }
+
+  })
+})
+
+
 
 
 app.use((err, req, res, next)=>{

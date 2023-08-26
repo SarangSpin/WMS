@@ -21,7 +21,7 @@ const Task = () => {
       useEffect(()=>{
           Axios({
               method: 'GET',
-              url: 'http://localhost:5000/user',
+              url: 'http://153.92.5.199:5000/user',
               withCredentials: true
           }).then((res)=>{
             if(res.data.err){
@@ -73,7 +73,7 @@ const Task = () => {
           };
           Axios({
             method: 'POST',
-            url: 'http://localhost:5000/appl3',
+            url: 'http://153.92.5.199:5000/appl3',
             withCredentials: true,
             data: newAppl
         }).then(res=>{

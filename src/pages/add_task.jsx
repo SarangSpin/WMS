@@ -45,7 +45,7 @@ const TaskForm = () => {
   useEffect(()=>{
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
@@ -108,7 +108,7 @@ const TaskForm = () => {
         };
         Axios({
           method: 'POST',
-          url: 'http://localhost:5000/add_task',
+          url: 'http://153.92.5.199:5000/add_task',
           withCredentials: true,
           data: newAppl
       }).then(res=>{
