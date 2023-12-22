@@ -74,6 +74,21 @@ const Appln1 = () => {
       setflash('Fill the required fields');
       navigate('/appl1');
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setflash('Please enter a valid email address');
+      navigate('/appl1');
+    }
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phoneNumber)) {
+      setflash('Please enter a 10-digit phone number');
+      navigate('/appl1');
+    }
+    const pincodeRegex = /^\d{6}$/;
+    if (!pincodeRegex.test(pincode)) {
+      setflash('Please enter a 6-digit pincode');
+      navigate('/appl1');
+    }
     else{
       const newAppl = {
         firstName: DOMPurify.sanitize(firstName),
