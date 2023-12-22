@@ -142,7 +142,7 @@ const Appln1 = () => {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-          <script>{firstName}</script>
+         
           <label htmlFor="l-name">Last Name</label>
           <input
             type="text"
