@@ -162,6 +162,24 @@ const Appln2 =() =>{
         })
   
       }
+      if (new Date(endDate) <= new Date(startDate)) {
+        setflash('End date should be after start date');
+        navigate('/appl2',{
+          state: stateData
+          
+        })
+  
+      }
+  
+      // Check if population is positive
+      if (parseInt(population) <= 0) {
+        setflash('Invalid Population');
+        navigate('/appl2',{
+          state: stateData
+          
+        })
+  
+      }
       else{
         const newAppl = {
           event_: DOMPurify.sanitize(event),
