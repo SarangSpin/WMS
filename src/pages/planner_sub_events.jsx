@@ -11,6 +11,7 @@ const PlannerSubEvent = ()=>{
     const {showBoundary} = useErrorBoundary()
     const [logUser, setloguser] = useState(null)
     const [subEvents, setSubEvents] = useState([]);
+  
     const setvalue = useLocation()
     var appl_id;
     appl_id = setvalue.state;
@@ -31,7 +32,7 @@ const PlannerSubEvent = ()=>{
           if(res.data){
             setloguser(res.data)
             if(res.data.client == "no"){
-              if(res.data.designation !== "Planner"){
+              if(res.data.designation !== "planner"){
                 navigate('/')
               }
             }
@@ -47,6 +48,8 @@ const PlannerSubEvent = ()=>{
       })
       .catch((err)=> showBoundary(err))
 
+      
+
 
       
 
@@ -61,7 +64,7 @@ const PlannerSubEvent = ()=>{
           setSubEvents(res.data.data)
           
           const renderComp = res.data.data.map((valueSub)=>{
-
+            
             return(
               <div>
       <div className="card">
@@ -72,6 +75,7 @@ const PlannerSubEvent = ()=>{
         <div className="content">
         <div className="subEventname">{valueSub.sub_event_id}</div>
           <div className="subEventname">Event-{valueSub.name}</div>
+         
           <div className="eventDate">Date - {valueSub.event_date.substring(0,10)}</div>
           <div>Description - {valueSub.description}</div>
           <div>Turn Up(Approx) - {valueSub.population}</div>
@@ -97,6 +101,8 @@ const PlannerSubEvent = ()=>{
           
         }
       )
+
+      
 
       
 

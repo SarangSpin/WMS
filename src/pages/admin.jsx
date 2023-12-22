@@ -78,6 +78,8 @@ const AdminPage = () => {
           <div><a className='link' href="/admin/employee_register">Create an employee account</a></div>
           
           <div><a className='link' href="/admin/info">Database Search</a></div>
+
+          <div><a className='link' href="/admin/vendor">Add Vendor/Service</a></div>
         </div>
         </>
       );

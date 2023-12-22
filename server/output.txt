@@ -1,0 +1,504 @@
+nohup: ignoring input
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/venue?id=982854d6-ac29-4614-8eb0-8e8b3dfed5d6
+
+/managerView?appl_id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+2
+/tasklist?id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+[
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    task_name: 'Task 2',
+    description_: 'Best flowers',
+    deadline: '18:45:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    status: 'Incomplete',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  },
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    task_name: 'Task 1',
+    description_: 'Best food',
+    deadline: '18:42:00',
+    type: 'catering',
+    vendor: 'Akash Caterers',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    status: 'Incomplete',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  }
+]
+/managersubview?task_id=2f37f1ba-3a5d-4bee-801d-98929686e67d
+
+{ task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d' }
+[
+  RowDataPacket {
+    id: 25,
+    task_submission_id: '71ed5b46-fa6b-4b97-ac6c-833af6f985ab',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'Corrected with changes',
+    time: '2023-12-14 21:30:43.562',
+    images_id: null,
+    status: 'Completed',
+    osm_changes: 'Done, good work'
+  },
+  RowDataPacket {
+    id: 24,
+    task_submission_id: '3a412978-44fd-49cd-87a0-735e7ae32a60',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'Done perfectly',
+    time: '2023-12-14 18:46:50.633709',
+    images_id: null,
+    status: 'Incomplete',
+    osm_changes: 'Post better pics'
+  }
+]
+/imagesubview?task_submission_id=71ed5b46-fa6b-4b97-ac6c-833af6f985ab
+
+1
+/imagesubview?task_submission_id=3a412978-44fd-49cd-87a0-735e7ae32a60
+
+2
+/taskfinish?task_id=2f37f1ba-3a5d-4bee-801d-98929686e67d
+
+{ task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d' }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/venue?id=982854d6-ac29-4614-8eb0-8e8b3dfed5d6
+
+/managerView?appl_id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+2
+/tasklist?id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+[
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    task_name: 'Task 2',
+    description_: 'Best flowers',
+    deadline: '18:45:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    status: 'Completed',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  },
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    task_name: 'Task 1',
+    description_: 'Best food',
+    deadline: '18:42:00',
+    type: 'catering',
+    vendor: 'Akash Caterers',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    status: 'Incomplete',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  }
+]
+/managersubview?task_id=47c0a862-581d-4116-986c-948b9972a9c5
+
+{ task_id: '47c0a862-581d-4116-986c-948b9972a9c5' }
+[
+  RowDataPacket {
+    id: 27,
+    task_submission_id: '5370b28c-19a0-478a-b2d4-5b33176b6112',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    review: 'Redone the task',
+    time: '2023-12-14 22:22:11.872727',
+    images_id: null,
+    status: 'Completed',
+    osm_changes: 'Perfect'
+  },
+  RowDataPacket {
+    id: 26,
+    task_submission_id: 'e62afff8-c3f8-40e3-bbab-33ff511ecc86',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    review: 'Done well',
+    time: '2023-12-14 22:20:25.168953',
+    images_id: null,
+    status: 'Completed',
+    osm_changes: 'Do itt again'
+  }
+]
+/imagesubview?task_submission_id=5370b28c-19a0-478a-b2d4-5b33176b6112
+
+2
+/imagesubview?task_submission_id=e62afff8-c3f8-40e3-bbab-33ff511ecc86
+
+2
+/taskfinish?task_id=47c0a862-581d-4116-986c-948b9972a9c5
+
+{ task_id: '47c0a862-581d-4116-986c-948b9972a9c5' }
+OkPacket {
+  fieldCount: 0,
+  affectedRows: 1,
+  insertId: 0,
+  serverStatus: 34,
+  warningCount: 0,
+  message: '(Rows matched: 1  Changed: 1  Warnings: 0',
+  protocol41: true,
+  changedRows: 1
+}
+/tasklist?id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+[
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    task_name: 'Task 2',
+    description_: 'Best flowers',
+    deadline: '18:45:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    status: 'Completed',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  },
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    task_name: 'Task 1',
+    description_: 'Best food',
+    deadline: '18:42:00',
+    type: 'catering',
+    vendor: 'Akash Caterers',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    status: 'Completed',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  }
+]
+/tasklist?id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+[
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    task_name: 'Task 2',
+    description_: 'Best flowers',
+    deadline: '18:45:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    status: 'Completed',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  },
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    task_name: 'Task 1',
+    description_: 'Best food',
+    deadline: '18:42:00',
+    type: 'catering',
+    vendor: 'Akash Caterers',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    status: 'Completed',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  }
+]
+/venue?id=982854d6-ac29-4614-8eb0-8e8b3dfed5d6
+
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/managerView?appl_id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+2
+/applogin
+
+{ username: 'surajflower', password: '1234' }
+[]
+[object Object]vendor
+true
+/vendorTask?id=effcc3c3-41dd-4e21-9268-30a60d3c05be
+
+[
+  RowDataPacket {
+    id: 30,
+    sub_event_id: 'db4e068f-b367-4854-8793-382c19f5e301',
+    task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+    task_name: 'pooja decor',
+    description_: 'Beautiful decor with rose, sunflower, etc.',
+    deadline: '08:00:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    status: 'Incomplete',
+    main_event_id: 'bc6e9b03-61b8-48b6-96f0-0c5641e6523f',
+    name: 'muhurtham',
+    description: null,
+    start_time: '11:29:00',
+    end_time: '13:29:00',
+    event_date: 2023-08-20T00:00:00.000Z,
+    population: 6
+  },
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    task_name: 'Task 2',
+    description_: 'Best flowers',
+    deadline: '18:45:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    status: 'Completed',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  }
+]
+/tasksubview?task_id=186b7e0f-3e34-4565-bb75-bf63f0c4899d&vendor_id=effcc3c3-41dd-4e21-9268-30a60d3c05be
+
+{
+  task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+  vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be'
+}
+[
+  RowDataPacket {
+    id: 23,
+    task_submission_id: '5f123457-759f-438e-869d-822ae61bf230',
+    task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'Nice work',
+    time: '2023-12-12 08:17:45.148215',
+    images_id: null,
+    status: 'Incomplete',
+    osm_changes: null
+  },
+  RowDataPacket {
+    id: 21,
+    task_submission_id: '00c906b7-a85b-4645-823c-9da104b95442',
+    task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'Crazy',
+    time: '2023-12-11 22:53:15.254731',
+    images_id: null,
+    status: 'Incomplete',
+    osm_changes: null
+  },
+  RowDataPacket {
+    id: 20,
+    task_submission_id: 'e39ac44c-31a5-4886-acf7-4f7615c0113f',
+    task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'AMazing work',
+    time: '2023-12-11 22:51:37.255122',
+    images_id: null,
+    status: 'Incomplete',
+    osm_changes: null
+  },
+  RowDataPacket {
+    id: 19,
+    task_submission_id: '1148fdd7-68c7-4c9c-b7cc-6062923f3c0d',
+    task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'Excellent work',
+    time: '2023-12-11 22:31:37.073924',
+    images_id: null,
+    status: 'Incomplete',
+    osm_changes: null
+  },
+  RowDataPacket {
+    id: 17,
+    task_submission_id: '03473b44-86d9-4f90-a5f4-dd1e56efb196',
+    task_id: '186b7e0f-3e34-4565-bb75-bf63f0c4899d',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    review: 'Great work',
+    time: '2023-12-11 18:44:21.632375',
+    images_id: null,
+    status: 'Incomplete',
+    osm_changes: null
+  }
+]
+/imagesubview?task_submission_id=5f123457-759f-438e-869d-822ae61bf230
+
+2
+/imagesubview?task_submission_id=00c906b7-a85b-4645-823c-9da104b95442
+
+2
+/imagesubview?task_submission_id=e39ac44c-31a5-4886-acf7-4f7615c0113f
+
+2
+/imagesubview?task_submission_id=1148fdd7-68c7-4c9c-b7cc-6062923f3c0d
+
+3
+/imagesubview?task_submission_id=03473b44-86d9-4f90-a5f4-dd1e56efb196
+
+2

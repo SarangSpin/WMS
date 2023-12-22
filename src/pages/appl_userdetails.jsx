@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import  Axios from "axios";
 import {useErrorBoundary } from "react-error-boundary";
 import Navbar from "./navbar";
-
+import DOMPurify from 'dompurify';
 
 const Appln1 = () => {
 
@@ -40,7 +40,7 @@ const Appln1 = () => {
 
 
 
-    const [firstName, setFirstName] = useState(null);
+    const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
@@ -76,15 +76,15 @@ const Appln1 = () => {
     }
     else{
       const newAppl = {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phoneNumber: phoneNumber,
-        city: city,
-        state: state,
-        pincode: pincode,
-        flash: flash,
-        user_id: logUser.user_id
+        firstName: DOMPurify.sanitize(firstName),
+        lastName: DOMPurify.sanitize(lastName),
+        email: DOMPurify.sanitize(email),
+        phoneNumber: DOMPurify.sanitize(phoneNumber),
+        city: DOMPurify.sanitize(city),
+        state: DOMPurify.sanitize(state),
+        pincode: DOMPurify.sanitize(pincode),
+        flash: DOMPurify.sanitize(flash),
+        user_id: DOMPurify.sanitize(logUser.user_id),
       };
       Axios({
         method: 'POST',
@@ -127,6 +127,7 @@ const Appln1 = () => {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
+          <script>{firstName}</script>
           <label htmlFor="l-name">Last Name</label>
           <input
             type="text"

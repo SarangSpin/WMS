@@ -6,7 +6,7 @@ import {useErrorBoundary } from "react-error-boundary";
 import Navbar from "./navbar";
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import img from '../images/venues/4d55e154-9b62-4817-894f-8b999623568a/img1.jpg'
+
 import './htmlfiles/venues.css';
 import MyImage from "./imageloader";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -83,15 +83,15 @@ const Venues = ()=>{
                             <div className="image-com">
                            
                                 
-                                <img src= {require(`../images/venues/${value.venues_id}/img1.jpg`)} loading={'lazy'}/>
+                                <img src= {require(`../../server/assets/images/venues/${value.venues_id}/img1.jpg`)} loading={'lazy'}/>
                                 
                             </div>
                             <div className="image-com">
-                                <img src={require(`../images/venues/${value.venues_id}/img2.jpg`) } loading={'lazy'}/>
+                                <img src={require(`../../server/assets/images/venues/${value.venues_id}/img2.jpg`) } loading={'lazy'}/>
                                 
                             </div>
                             <div className="image-com">
-                                <img src={require(`../images/venues/${value.venues_id}/img3.jpg`)} loading={'lazy'}/>
+                                <img src={require(`../../server/assets/images/venues/${value.venues_id}/img3.jpg`)} loading={'lazy'}/>
                                 
                             </div>
                             

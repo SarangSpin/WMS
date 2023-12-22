@@ -28,7 +28,7 @@ const TaskView = () =>{
             if(res.data){
               setloguser(res.data)
               if(res.data.client == "no"){
-                if(res.data.designation !== "Planner"){
+                if(res.data.designation !== "planner"){
                   navigate('/')
                 }
               }
@@ -67,9 +67,8 @@ const TaskView = () =>{
         <div className="content">
         <div className="subEventname">{valueSub.task_id}</div>
           <div className="subEventname">Name - {valueSub.task_name}</div>
-          <div>Description - {valueSub.description}</div>
+          <div>Description - {valueSub.description_}</div>
           <div className="time">Deadline: {valueSub.deadline}</div>
-          <div className="time">Status: {valueSub.status}</div>
         </div>
       </div>
       </div>

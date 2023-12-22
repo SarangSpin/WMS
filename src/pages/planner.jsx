@@ -29,7 +29,7 @@ const Planner = () => {
         if(res.data){
           setloguser(res.data)
           if(res.data.client == "no"){
-            if(res.data.designation !== "Planner"){
+            if(res.data.designation !== "planner"){
               navigate('/')
             }
           }

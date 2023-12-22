@@ -72,7 +72,7 @@ let Planner = () => {
     }
     else{
         if(loguser.client == "no"){
-            if(loguser.designation === "Planner")
+            if(loguser.designation === "planner")
             return (<a className="option" href="/planner">Applications</a> )
            }
            else{

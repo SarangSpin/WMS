@@ -3,9 +3,10 @@
 
 
 .l-wrapper{
-    background: url('../../images/signin_bg.jpeg') no-repeat;   
+    background: url('../../images/signin_bg.jpeg') no-repeat ;   
    background-position: center;
-   background-size: cover;
+   background-size:contain ;
+   
     
 
 
@@ -64,4 +65,16 @@ span{
 }
 p{
  color: red;   
+}
+
+.container-bg{
+    align-self: center;
+    vertical-align: center;
+    margin: 5%;
+    border-radius: 20px;
+    size: 75%;
+}
+.bg{
+    align-items: center;
+    vertical-align: center;
 }

@@ -12,13 +12,14 @@ const TaskForm = () => {
 
   const {showBoundary} = useErrorBoundary()
     const [logUser, setloguser] = useState(null)
-
-   const [flash, setflash] = useState('');
+    const [flash, setflash] = useState('');
     const [task_name, setTaskName] = useState('');
     const [description, setDescription] = useState('');
     const [deadline, setDeadline] = useState('');
     const [task_status, setTaskStatus] = useState('');
-
+    const [type, settype] = useState('');
+    const [vendor, setvendor] = useState('');
+    const [vendorlist, setvendorlist] = useState([]);
   
   function formatTime(inputTime) {
     const timeParts = inputTime.split(':');
@@ -54,7 +55,7 @@ const TaskForm = () => {
         if(res.data){
           setloguser(res.data)
           if(res.data.client == "no"){
-            if(res.data.designation !== "Planner"){
+            if(res.data.designation !== "planner"){
               navigate('/')
             }
           }
@@ -69,6 +70,9 @@ const TaskForm = () => {
         }
     }, [])
     .catch((err)=> showBoundary(err))
+
+
+    
     
 
     
@@ -103,7 +107,8 @@ const TaskForm = () => {
         task_name: task_name,
       description: description,
       deadline: deadline,
-      task_status: task_status
+      type: type,
+      vendor: vendor
         
         };
         Axios({
@@ -120,6 +125,23 @@ const TaskForm = () => {
     }
   };
 
+   const showVendor= (vend) =>{
+    settype(vend)
+    console.log(type)  
+    Axios({
+      method: 'GET',
+      url: `http://153.92.5.199:5000/vendorlist?vend=${vend}`,
+      withCredentials: true,
+     
+  }).then(res=>{
+    if(res.data.status){
+      setvendorlist(res.data.data)
+      console.log(vendorlist)
+    }
+  })
+
+
+   }
     return(
 
         <>
@@ -128,6 +150,36 @@ const TaskForm = () => {
           <div>{flash}</div>
       <label>Task Name:</label>
       <input type="text" value={task_name} onChange={handleTaskNameChange} />
+
+      <label>Type:</label>
+      <select name="type" value={type} onChange={(e) => {
+        showVendor(e.target.value) 
+        }} required>
+                  <option value="-">--</option>
+                  <option value="catering">Catering and Dining</option>
+                  <option value="housekeeping">Housekeeping</option>
+                  <option value="gardening">Gardening</option>
+                  <option value="flower">Flowers</option>
+                  <option value="photo_videography">Photo/Videography</option>
+                  <option value="chairs_tables">Chairs and Tables</option>
+                  <option value="bartender">Bartender</option>
+                  <option value="music">DJ/Music</option>
+
+      </select>
+      <label >Select Vendor:</label>
+      <select name="vendor" value={vendor} onChange={(e) => setvendor(e.target.value)} required>
+
+      <option value="-">--</option>
+          {
+            vendorlist?.map((i)=>{
+             return <option value={i.vendor_name} >{i.vendor_name}</option>
+            }
+            )
+
+          }
+        
+
+      </select>
 
       <label>Description:</label>
       <textarea value={description} onChange={handleDescriptionChange} />

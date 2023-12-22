@@ -6,7 +6,8 @@ import Navbar from "./navbar";
 import { Link } from "react-router-dom";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import StarRating from 'star-rating-react';
-
+import {Carousel} from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 
 const PlannerView = ()=>{
@@ -16,7 +17,10 @@ const PlannerView = ()=>{
     const setvalue = useLocation()
     var value = {};
     const [venue, setvenue] = useState(null)
-
+    const [osm, setosm] = useState(null)
+    const [osmlist, setosmlist] = useState([])
+    const [osmname, setosmname] = useState({})
+    const [images, setimages] = useState([])
     var renderComp;
    
   
@@ -36,7 +40,7 @@ const PlannerView = ()=>{
           if(res.data){
             setloguser(res.data)
             if(res.data.client == "no"){
-              if(res.data.designation !== "Planner"){
+              if(res.data.designation !== "planner"){
                 navigate('/')
               }
             }
@@ -69,14 +73,14 @@ const PlannerView = ()=>{
                 return(
                     <div>
 
-                    <div style={infoStyle}>{valueVenue.venues_name}</div>
+                    <div style={infoStyle}>{valueVenue?.venues_name}</div>
                     <div >
                 
                     <div>
-                    <div style={infoStyle}>City: {valueVenue.city}</div>
+                    <div style={infoStyle}>City: {valueVenue?.city}</div>
                         
-                        <div style={infoStyle}>Location: {valueVenue.location}</div>
-                        <div style={infoStyle}>Rating: {valueVenue.rating}/10 
+                        <div style={infoStyle}>Location: {valueVenue?.location}</div>
+                        <div style={infoStyle}>Rating: {valueVenue?.rating}/10 
                         
                             </div>
 
@@ -95,16 +99,148 @@ const PlannerView = ()=>{
               console.log(venue)
         }
         
-    })
+    }) 
     .catch((err)=> showBoundary(err))
 
+
+    Axios({
+      method: 'GET',
+      url: `http://153.92.5.199:5000/images?id=${value.appl_id}`,
+      withCredentials: true
+  }).then((res)=>{
+    var dem_appl_id = value.appl_id
+    if(res.data.status){
+      console.log(res.data.data)
+      var renderComp2 = res.data.data.map((value)=>{
+        return(
+            
+          <div className="image-com">                   
+          <img src= {`http://153.92.5.199:5000/images/appln/${dem_appl_id}/${value}`} loading={'lazy'}/>
+           
+      </div>
+
+        )
+      })
+      setimages(renderComp2)
+    }
+
+    
       
+  })
+  .catch((err)=> showBoundary(err))
+    
+
+    
 
       
       
 
         
     }, [])
+
+    const projectManager = (value) =>{
+      if(value.status == 'unassigned')
+      {
+
+      Axios({
+        method: 'GET',
+        url: `http://153.92.5.199:5000/osm`,
+        withCredentials: true
+    }).then((res)=>{
+      if(res.data.status){
+        setosmlist(res.data.data)
+        console.log(osmlist)
+      }
+        
+    })
+    .catch((err)=> showBoundary(err))
+
+    const onOSMSubmit = (e) => {
+      e.preventDefault()
+      Axios({
+        method: 'POST',
+        url: `http://153.92.5.199:5000/osm?appl_id=${value.appl_id}`,
+        withCredentials: true,
+        data: {osm: osm}
+    }).then((res)=>{
+      if(res.data.status){
+        alert('OSM Selected Successfully')
+        console.log('OSM Selected Successfully')
+        navigate('/planner')
+      }
+        
+    })
+    .catch((err)=> showBoundary(err))
+    }
+
+    return (
+      <>
+      <form>
+      <label >Select On Site Manager:</label>
+      <select name="osm" value={osm} onChange={(e) => setosm(e.target.value)} required>
+
+      <option value="-">--</option>
+          {
+            osmlist?.map((i)=>{
+             return <option value={i.employee_id} >{i.first_name} {i.last_name}</option>
+            }
+            )
+
+          }
+        
+
+      </select>
+
+      <button onClick={(e)=>onOSMSubmit(e)}>Confirm and Submit</button>
+      </form>
+      </>
+
+    );
+
+      }
+
+      else{
+
+      const checkOSM = (e) => {
+        e.preventDefault();
+        Axios({
+          method: 'GET',
+          url: `http://153.92.5.199:5000/osmname?id=${value.osm}`,
+          withCredentials: true
+      }).then((res)=>{
+        if(res.data.status){
+          setosmname(res.data.data)
+          alert(`The project manager is ${res.data.data.first_name} ${res.data.data.last_name}`)
+    
+        }
+        
+    
+        
+          
+      })
+      .catch((err)=> showBoundary(err))
+    }
+
+      return (
+
+        <>
+        <div style={infoStyle}>
+          <p style={labelStyle}>Project Manager:</p>
+           <p style={valueStyle}>{value.osm}</p> 
+           <button onClick={(e)=>checkOSM(e)}>Check Manager</button>
+        
+        </div>
+        </>
+
+      )
+        
+
+      
+
+       
+
+      }
+    }
     
 
 
@@ -194,6 +330,12 @@ const PlannerView = ()=>{
         color: 'red'
       }}>{value.status}</p>
           </div>
+          <div className="images">
+                <Carousel animationHandler={'fade'}  dynamicHeight={false}>
+                {images}
+            </Carousel>
+            
+            </div>
           <div style={infoStyle}>
             <p style={labelStyle}>Application Date:</p>
             <p style={{
@@ -201,13 +343,13 @@ const PlannerView = ()=>{
         color: 'red'
       }}>{value.appln_date.substring(0, 10)}</p>
           </div>
-          <div style={infoStyle}>
-            <p style={labelStyle}>Project Manager:</p>
-            <p style={valueStyle}>{value.osm}</p>
-          </div>
+          {
+            projectManager(value)
+            
+}
           <div style={infoStyle}>
             <p style={labelStyle}>Venue:</p>
-            <div>{venue}</div>
+            <div>{venue !== null ? venue : <></>}</div>
           </div>
           {/* Add more sections for other details */}
           <div>

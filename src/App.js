@@ -21,6 +21,7 @@ import SubEventDisplay from './pages/sub_event_display';
 import PlannerView from './pages/planner_view';
 import PlannerSubEvent from './pages/planner_sub_events';
 import Venues from './pages/venues';
+import AddVendor from './pages/add_vendor';
 
 function App() {
   
@@ -44,6 +45,10 @@ function App() {
     {
       path: '/admin/info',
       element: <ErrorBoundary FallbackComponent={ErrorPage}><DbInfo /></ErrorBoundary>
+    },
+    {
+      path: '/admin/vendor',
+      element: <ErrorBoundary FallbackComponent={ErrorPage}><AddVendor /></ErrorBoundary>
     },
     {
       path: '/admin/employee_register',
