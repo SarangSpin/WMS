@@ -17,7 +17,7 @@ const Logout = (e) => {
     e.preventDefault()
     Axios({
         method: 'POST',
-        url: 'http://localhost:5000/logout',
+        url: 'http://153.92.5.199:5000/logout',
         withCredentials: true
     }).then((res)=>{
         navigate('/login')})
@@ -72,7 +72,7 @@ let Planner = () => {
     }
     else{
         if(loguser.client == "no"){
-            if(loguser.designation === "Planner")
+            if(loguser.designation === "planner")
             return (<a className="option" href="/planner">Applications</a> )
            }
            else{
@@ -110,8 +110,8 @@ let OsManager = () => {
           <li><a href="#">About</a></li>
           <li><a href="#">Help</a></li>
           
-            <li class="dropdown">
-        <a href="#" class="dropbtn">{username()}</a>
+            <li className="dropdown">
+        <a href="#" className="dropbtn">{username()}</a>
         <div className="dropdown-content">
         {LoggedIn()}
         {AdminStatus()}

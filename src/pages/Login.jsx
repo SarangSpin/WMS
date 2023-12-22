@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import './htmlfiles/Login.css'
 import { useErrorBoundary } from 'react-error-boundary'
-
+import DOMPurify from 'dompurify';
 
 const Login = () => {
   
@@ -17,13 +17,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
       e.preventDefault()
-     const inputs = {
-          username: username,
-          password: password
-      }
+      const inputs = {
+        username: DOMPurify.sanitize(username), // Sanitize user inputs
+        password: DOMPurify.sanitize(password),
+      };
       Axios({
           method: 'POST',
-          url: 'http://localhost:5000/login',
+          url: 'http://153.92.5.199:5000/login',
           withCredentials: true,
           data: inputs
       }).then(res => {
@@ -49,11 +49,12 @@ const Login = () => {
               
           }}
       })
-      .catch((err)=>showBoundary(err))
+      .catch((err)=> console.log(err))
 
   }
   return (
-    <div className="container">
+    <div className="bg">
+    <div className="container-bg">
     <section className="l-wrapper">
       <div className="center">
         <h1 >
@@ -74,6 +75,7 @@ const Login = () => {
         </form>
       </div>
     </section>
+    </div>
     </div>
   )
 }

@@ -1,0 +1,258 @@
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]
+/venue?id=982854d6-ac29-4614-8eb0-8e8b3dfed5d6
+
+/managerView?appl_id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+2
+/tasklist?id=0f085119-c6fc-4a75-8d0e-359225c89ecf
+
+[
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '47c0a862-581d-4116-986c-948b9972a9c5',
+    task_name: 'Task 1',
+    description_: 'Best food',
+    deadline: '18:42:00',
+    type: 'catering',
+    vendor: 'Akash Caterers',
+    vendor_id: '6c629937-f43f-47e1-afac-a6b2d92a4ee4',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  },
+  RowDataPacket {
+    id: 53,
+    sub_event_id: 'b491fdf6-4beb-4fcd-baa5-2a9889f7bc76',
+    task_id: '2f37f1ba-3a5d-4bee-801d-98929686e67d',
+    task_name: 'Task 2',
+    description_: 'Best flowers',
+    deadline: '18:45:00',
+    type: 'flower',
+    vendor: 'Suraj Flowers ',
+    vendor_id: 'effcc3c3-41dd-4e21-9268-30a60d3c05be',
+    main_event_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    name: 'muhurtham',
+    description: 'null',
+    start_time: '21:16:00',
+    end_time: '22:16:00',
+    event_date: 2023-12-13T00:00:00.000Z,
+    population: 100
+  }
+]
+/home/evamgmt/WMS/client/server
+Server running
+Connected!
+/applogin
+
+{ username: 'Ramesh', password: '1234' }
+[
+  RowDataPacket {
+    employee_id: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    first_name: 'Ramesh',
+    last_name: 'P',
+    email: 'ramesh@gmail.com',
+    phone: 9567845678,
+    address: 'xyz',
+    designation: 'osm',
+    password: '$2a$10$DvATBCI4S7tbxDlGfgLwg.qfxO.gmeGRIctEzvV9NdzPQDjtocjk.',
+    admin_status: 'false',
+    client: 'no'
+  }
+]
+true
+/managerDash?osm=b616db57-df6c-428f-8663-0e55ad42ad56
+
+[
+  RowDataPacket {
+    id: 57,
+    appl_id: '0f085119-c6fc-4a75-8d0e-359225c89ecf',
+    status: 'assigned',
+    appln_date: 2023-12-12T00:00:00.000Z,
+    osm: 'b616db57-df6c-428f-8663-0e55ad42ad56',
+    event_: 'party',
+    description_: 'null',
+    start_date: 2023-12-01T00:00:00.000Z,
+    end_date: 2023-12-02T00:00:00.000Z,
+    population: 1000,
+    budget: '5 to 10 lakhs',
+    cus_low_budget: 0,
+    cus_event: 'null',
+    user_id: null,
+    venue_id: '982854d6-ac29-4614-8eb0-8e8b3dfed5d6'
+  }
+]

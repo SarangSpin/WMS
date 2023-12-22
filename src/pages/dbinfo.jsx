@@ -15,7 +15,7 @@ const DbInfo = () =>{
   useEffect(()=>{
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
@@ -48,7 +48,7 @@ const DbInfo = () =>{
         
         Axios({
             method: 'POST',
-            url: 'http://localhost:5000/logout',
+            url: 'http://153.92.5.199:5000/logout',
             withCredentials: true
         }).then((res)=>{
             console.log(res.data.message)

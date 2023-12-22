@@ -30,7 +30,7 @@ const EmployeeReg = () =>{
   useEffect(()=>{
     Axios({
         method: 'GET',
-        url: 'http://localhost:5000/user',
+        url: 'http://153.92.5.199:5000/user',
         withCredentials: true
     }).then((res)=>{
       if(res.data.err){
@@ -80,7 +80,7 @@ const handleSubmit = (e) => {
 
     Axios({
       method: 'POST',
-      url: 'http://localhost:5000/employee_reg',
+      url: 'http://153.92.5.199:5000/employee_reg',
       withCredentials: true,
       data: inputs
   }).then( res => {
@@ -114,7 +114,7 @@ const handleSubmit = (e) => {
         
         Axios({
             method: 'POST',
-            url: 'http://localhost:5000/logout',
+            url: 'http://153.92.5.199:5000/logout',
             withCredentials: true
         }).then((res)=>{
             console.log(res.data.message)
@@ -159,7 +159,15 @@ const handleSubmit = (e) => {
             </div>
             <div class="form-group">
                 <label for="designation">Designation:</label>
-                <input type="text" id="designation" name="designation" value={designation} onChange={e=>setDesignation(e.target.value)} required/>
+                {/* <input type="text" id="designation" name="designation" value={designation} onChange={e=>setDesignation(e.target.value)} required/> */}
+                <select name="designation" id="designation" value={designation} onChange={(e) => setDesignation(e.target.value)} required>
+               
+                <option value="-">--</option>
+                  <option value="osm">On Site Manager</option>
+                  <option value="planner">Planner</option>
+                  <option value="gm">General Manager</option>
+                
+                </select>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
@@ -171,7 +179,15 @@ const handleSubmit = (e) => {
             </div>
             <div class="form-group">
                 <label for="admin">Admin Status (true or false):</label>
-                <input type="text" id="admin" name="admin_status" value={admin} onChange={e=>setadmin(e.target.value)} required/>
+                {/* <input type="text" id="admin" name="admin_status" value={admin} onChange={e=>setadmin(e.target.value)} required/> */}
+                <select id="admin" name="admin_status" value={admin} onChange={e=>setadmin(e.target.value)} required>
+               
+                <option value="-">--</option>
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>
+                  
+                
+                </select>
             </div>
             <input type="submit" onClick={e=>handleSubmit(e)} value="Submit"/>
             <div><h2>{flash}</h2></div>

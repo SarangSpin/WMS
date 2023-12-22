@@ -20,7 +20,7 @@ const Register = () => {
 
         Axios({
             method: 'POST',
-            url: 'http://localhost:5000/register',
+            url: 'http://153.92.5.199:5000/register',
             withCredentials: true,
             data: inputs
         }).then( res => {
