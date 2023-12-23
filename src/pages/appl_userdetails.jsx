@@ -40,7 +40,7 @@ const Appln1 = () => {
 
 
 
-    const [firstName, setFirstName] = useState('');
+    const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(null);
@@ -69,24 +69,29 @@ const Appln1 = () => {
       pincode,
       logUser.user_id
     ];
-    
-    if (data1.includes(null)) {
-      setflash('Fill the required fields');
-      navigate('/appl1');
-    }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setflash('Please enter a valid email address');
+    const phoneRegex = /^\d{10}$/;
+    const pincodeRegex = /^\d{6}$/;
+
+    if (data1.includes(null)) {
+      alert('Fill the required fields');
       navigate('/appl1');
     }
-    const phoneRegex = /^\d{10}$/;
-    if (!phoneRegex.test(phoneNumber)) {
+    
+    
+    else if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address');
+      navigate('/appl1');
+    }
+  
+    
+    else if (!phoneRegex.test(phoneNumber)) {
       setflash('Please enter a 10-digit phone number');
       navigate('/appl1');
     }
-    const pincodeRegex = /^\d{6}$/;
-    if (!pincodeRegex.test(pincode)) {
-      setflash('Please enter a 6-digit pincode');
+    
+    else if (!pincodeRegex.test(pincode)) {
+      alert('Please enter a 6-digit pincode');
       navigate('/appl1');
     }
     else{
@@ -116,10 +121,11 @@ const Appln1 = () => {
           state: res.data.application_id
         } )
 
-        
+       
       }
     })
-    }
+  }
+  
   };
 
     return(

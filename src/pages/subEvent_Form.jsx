@@ -82,10 +82,26 @@ function formatTime(inputTime) {
     
     console.log(data3)
     if (data3.includes(null)){
-      setflash('Fill the required fields')
+      alert('Fill the required fields')
       navigate('/sub_event/form',{
         state:
           stateData
+        
+      })
+
+    }
+    else if (startTime > endTime) {
+      alert('Invalid start and end time');
+      navigate('/sub_event/form',{
+        state: stateData
+        
+      })
+
+    }
+    else if (parseInt(population) <= 0) {
+      alert('Invalid Population');
+      navigate('/sub_event/form',{
+        state: stateData
         
       })
 
@@ -172,11 +188,6 @@ function formatTime(inputTime) {
           <div className="input-container">
             <label htmlFor="population"><span className="bold-text">Enter rough Turn-Up</span><br/></label>
             <input type="number" name="population" id="population" value={population}  onChange={(e) => setPopulation(e.target.value)} required/>
-          </div>
-          <br/><br/>
-          <div className="input-container">
-            <label htmlFor="image"><span className="bold-text">Upload images for reference (optional)</span><br/></label>
-            <input type="file" name="image" id="population" required/>
           </div>
           <br/><br/>
           {/* Event Timings */}

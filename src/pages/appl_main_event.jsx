@@ -155,15 +155,15 @@ const Appln2 =() =>{
       
       console.log(data2)
       if (data2.includes(null)){
-        setflash('Fill the required fields')
+        alert('Fill the required fields')
         navigate('/appl2',{
           state: stateData
           
         })
   
       }
-      if (new Date(endDate) <= new Date(startDate)) {
-        setflash('End date should be after start date');
+      else if (new Date(endDate) <= new Date(startDate)) {
+        alert('Invalid start and end date');
         navigate('/appl2',{
           state: stateData
           
@@ -172,8 +172,8 @@ const Appln2 =() =>{
       }
   
       // Check if population is positive
-      if (parseInt(population) <= 0) {
-        setflash('Invalid Population');
+      else if (parseInt(population) <= 0) {
+        alert('Invalid Population');
         navigate('/appl2',{
           state: stateData
           
@@ -189,8 +189,8 @@ const Appln2 =() =>{
           endDate: DOMPurify.sanitize(endDate),
           population: DOMPurify.sanitize(population),
           budget: DOMPurify.sanitize(budget),
-          cusLowBudget: DOMPurify.sanitize(cusLowBudget),
-          cusHighBudget: DOMPurify.sanitize(cusHighBudget),
+          cusLowBudget: cusLowBudget,
+          cusHighBudget: cusHighBudget,
           applid: DOMPurify.sanitize(stateVar.state),
         };
           

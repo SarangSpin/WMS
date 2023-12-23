@@ -385,20 +385,26 @@ app.post('/appl2', upload.array('file', 4), (req, res, next) => {
   console.log(data2)
   
 
-  const query = `INSERT INTO evamgmt.appln_details (event_, cus_event, description_, population, budget, cus_low_budget, appl_id, start_date, end_date)
-    VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', ${data2[3]}, ${data2[4]}, ${data2[5]}, '${data2[6]}', '${data2[7]}', '${data2[8]}')`;
+  const query = `INSERT INTO evamgmt.appln_details (event_, cus_event, description_, population, budget, cus_low_budget, appl_id, start_date, end_date)  VALUES ('${data2[0]}', '${data2[1]}', '${data2[2]}', ${data2[3]}, '${data2[4]}', ${data2[5]}, '${data2[6]}', '${data2[7]}', '${data2[8]}')`;
 
   con.query(query, (err) => {
-    if (err) next(err);
-  });
+    if (err) {
+      console.log(err)
+      next(err);
+    }
+    else{
 
-  req.flash('success', 'Application part 2 successfully registered');
+      req.flash('success', 'Application part 2 successfully registered');
   res.send({
     result: data2,
     status: true,
     application_id: appl_id,
     flash: req.flash('success')
   });
+    }
+  });
+
+  
 });
 
 
